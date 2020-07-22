@@ -10,8 +10,6 @@ print(monitors)
 
 def pop_out_zoom_controls():
     desktop = Desktop()
-    windows = desktop.windows()
-
     zoom = desktop.Zoom_Meeting
 
     zoom.type_keys('%h')
