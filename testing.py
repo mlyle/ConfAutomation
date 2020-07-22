@@ -1,14 +1,45 @@
+# C:\Users\ddennis\AppData\Local\Programs\Python\Python38\Scripts\pyinstaller.exe --noconfirm testing.spec
+
 from pywinauto import Desktop, keyboard
 
-desktop = Desktop()
-windows = desktop.windows()
-
 import win32api
+import time
 
 monitors = win32api.EnumDisplayMonitors()
 print(monitors)
 
+def pop_out_zoom_controls():
+    desktop = Desktop()
+    windows = desktop.windows()
+
+    zoom = desktop.Zoom_Meeting
+
+    zoom.type_keys('%h')
+    zoom.type_keys('%u')
+    desktop.participants.move_window(30,30)
+    desktop.chat.move_window(200,30)
+
+# Retry getting the zoom meeting window, because it's finicky
+for i in range(3):
+    try:
+        pop_out_zoom_controls()
+        break
+    except Exception:
+        time.sleep(0.5)
+
+smallest=999999
+mon = 0
+
+for i in range(len(monitors)):
+    mon_dims = monitors[i][2]
+    if mon_dims[2] < smallest:
+        smallest = mon_dims[2]
+        mon = i
+
 def move_gallery_to_monitor(num):    
+    desktop = Desktop()
+    windows = desktop.windows()
+
     for w in windows:
         mon_dims = monitors[num][2]
         if (w.window_text() == "Zoom Meeting"):
@@ -21,45 +52,24 @@ def move_gallery_to_monitor(num):
 
             print(w.client_rect())
 
-smallest=999999
-
-mon = 0
-
-for i in range(len(monitors)):
-    mon_dims = monitors[i][2]
-    if mon_dims[2] < smallest:
-        smallest = mon_dims[2]
-        mon = i
-
-zoom = desktop.Zoom_Meeting
-
-zoom.type_keys('%h')
-zoom.type_keys('%u')
-
-desktop.participants.move_window(30,30)
-desktop.chat.move_window(200,30)
 move_gallery_to_monitor(mon)
 
 import pyhk3
 
 def key_move_meeting():
     global mon
-    desktop = Desktop()
-    windows = desktop.windows()
+
     mon = mon + 1
+
     if mon >= len(monitors):
         mon = 0
 
     move_gallery_to_monitor(mon)
 
-def key_quit():
-    import sys
-    sys.exit()
-
 hot = pyhk3.pyhk()
 print(hot.getHotkeyListNoSingleNoModifiers())
+
 # add hotkey
 id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting)
-id2 = hot.addHotkey(['Ctrl', 'Alt', '8'], key_quit)
 
 hot.start()
