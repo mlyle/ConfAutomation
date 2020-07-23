@@ -34,7 +34,21 @@ for i in range(len(monitors)):
         smallest = mon_dims[2]
         mon = i
 
-def move_gallery_to_monitor(num):    
+armTime = 0
+
+def move_gallery_to_monitor(num):
+    global armTime
+
+    now = time.time()
+
+    interval = now - armTime
+
+    # Moving windows onto the high resolution display takes some time.
+    # Only be willing to answer a keystroke if it's been half a second since
+    # when we finished processing the previous keystroke.
+    if interval < 0.5:
+        return
+
     desktop = Desktop()
     windows = desktop.windows()
 
@@ -49,6 +63,8 @@ def move_gallery_to_monitor(num):
             w.move_window(*target)
 
             print(w.client_rect())
+
+    armTime = time.time()
 
 move_gallery_to_monitor(mon)
 
