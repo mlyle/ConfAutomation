@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['testing.py'],
+a = Analysis(['confautomation.py'],
              pathex=['C:\\Users\\ddennis\\Documents\\Testing'],
              binaries=[],
              datas=[],
@@ -21,7 +21,7 @@ exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='testing',
+          name='confautomation',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
@@ -34,5 +34,4 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                upx_exclude=[],
-               console=False,
-               name='testing')
+               name='confautomation')

@@ -8,6 +8,21 @@ import time
 monitors = win32api.EnumDisplayMonitors()
 print(monitors)
 
+def minimize_ourselves():
+    desktop = Desktop()
+    windows = desktop.windows()
+
+    for w in windows:
+        if "confautomation" in w.window_text():
+            if "Visual Studio" in w.window_text():
+                continue
+            w.minimize()
+
+try:
+    minimize_ourselves()
+except Exception:
+    pass
+
 def pop_out_zoom_controls():
     desktop = Desktop()
     zoom = desktop.Zoom_Meeting
@@ -23,6 +38,7 @@ for i in range(3):
         pop_out_zoom_controls()
         break
     except Exception:
+        print("Failed to move zoom controls; try %d..."%(i))
         time.sleep(0.5)
 
 smallest=999999
@@ -51,9 +67,9 @@ def move_gallery_to_monitor(num):
 
     desktop = Desktop()
     windows = desktop.windows()
+    mon_dims = monitors[num][2]
 
     for w in windows:
-        mon_dims = monitors[num][2]
         if (w.window_text() == "Zoom Meeting"):
             print(w.client_rect())
             target=(mon_dims[0]+1, mon_dims[1]+1, mon_dims[2]-mon_dims[0]-2, mon_dims[3]-mon_dims[1]-2)
