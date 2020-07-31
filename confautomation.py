@@ -1,4 +1,4 @@
-# C:\Users\ddennis\AppData\Local\Programs\Python\Python38\Scripts\pyinstaller.exe --noconfirm testing.spec
+# pyinstaller --noconfirm confautomation.spec
 
 from pywinauto import Desktop, keyboard
 
