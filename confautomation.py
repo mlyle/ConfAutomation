@@ -8,13 +8,22 @@ import time
 monitors = win32api.EnumDisplayMonitors()
 print(monitors)
 
+def show_warning(text):
+    if win32api.MessageBox(0, text, 'ConfAutomation', 0x1031) != 1:
+        import sys
+        sys.exit()
+
+if len(monitors) != 3:
+    show_warning("Expected 3 monitors but found %d"%(len(monitors)))
+
 def minimize_ourselves():
     desktop = Desktop()
     windows = desktop.windows()
 
     for w in windows:
-        if "confautomation" in w.window_text():
-            if "Visual Studio" in w.window_text():
+        txt = w.window_text().lower()
+        if "confautomation" in txt:
+            if "visual studio" in txt:
                 continue
             w.minimize()
 
