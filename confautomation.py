@@ -16,7 +16,7 @@ import pyhk3
 path_zoom = pathlib.Path(winshell.application_data(), 'Zoom', 'bin', 'zoom.exe')
 path_obs = pathlib.Path('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
 
-armTime = 0
+gallery_arm_time = 0
 
 def show_warning(text):
     if win32api.MessageBox(0, "Warning: " + text, 'ConfAutomation', 0x1031) != 1:
@@ -95,11 +95,11 @@ def select_smallest_monitor():
             mon = i
 
 def move_gallery_to_monitor(num):
-    global armTime
+    global gallery_arm_time
 
     now = time.time()
 
-    interval = now - armTime
+    interval = now - gallery_arm_time
 
     # Moving windows onto the high resolution display takes some time.
     # Only be willing to answer a keystroke if it's been half a second since
@@ -126,7 +126,7 @@ def move_gallery_to_monitor(num):
 
             desktop.Zoom_Meeting.type_keys('%f')
 
-    armTime = time.time()
+    gallery_arm_time = time.time()
 
 def conference_start():
     ensure_exists(path_zoom)
