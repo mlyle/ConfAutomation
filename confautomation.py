@@ -6,14 +6,29 @@ import win32api
 import time
 
 import psutil
+import winshell
+import os
+import pathlib
 
-monitors = win32api.EnumDisplayMonitors()
-print(monitors)
+# XXX these hardcoded paths are unfortunate
+path_zoom = pathlib.Path(winshell.application_data(), 'Zoom', 'bin', 'zoom.exe')
+path_obs = pathlib.Path('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
+
 
 def show_warning(text):
     if win32api.MessageBox(0, "Warning: " + text, 'ConfAutomation', 0x1031) != 1:
         import sys
         sys.exit()
+
+def ensure_exists(path):
+    if not path.exists():
+        show_warning("Could not find %s which is REQUIRED FOR OPERATION"%(str(path)))
+
+ensure_exists(path_zoom)
+ensure_exists(path_obs)
+
+monitors = win32api.EnumDisplayMonitors()
+print(monitors)
 
 if len(monitors) != 3:
     show_warning("Expected 3 monitors but found %d"%(len(monitors)))
@@ -47,17 +62,13 @@ kill_procs_by_name('OBS', True)
 # XXX copy in OBS profile directory
 
 def start_zoom():
-    import winshell
-    import os
-    # XXX This is a hardcoded path for Zoom which is unfortunate
-    os.startfile(winshell.application_data()+'\\Zoom\\bin\\Zoom.exe')
+    os.startfile(str(path_zoom))
 
 def start_obs():
-    import os
     oldpath = os.getcwd()
 
-    os.chdir('C:\\Program Files\\obs-studio\\bin\\64bit')
-    os.startfile('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
+    os.chdir(str(path_obs.parent))
+    os.startfile(path_obs)
     os.chdir(oldpath)
 
 start_obs()
