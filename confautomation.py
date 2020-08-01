@@ -9,11 +9,14 @@ import psutil
 import winshell
 import os
 import pathlib
+import pyhk3
+
 
 # XXX these hardcoded paths are unfortunate
 path_zoom = pathlib.Path(winshell.application_data(), 'Zoom', 'bin', 'zoom.exe')
 path_obs = pathlib.Path('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
 
+armTime = 0
 
 def show_warning(text):
     if win32api.MessageBox(0, "Warning: " + text, 'ConfAutomation', 0x1031) != 1:
@@ -23,15 +26,6 @@ def show_warning(text):
 def ensure_exists(path):
     if not path.exists():
         show_warning("Could not find %s which is REQUIRED FOR OPERATION"%(str(path)))
-
-ensure_exists(path_zoom)
-ensure_exists(path_obs)
-
-monitors = win32api.EnumDisplayMonitors()
-print(monitors)
-
-if len(monitors) != 3:
-    show_warning("Expected 3 monitors but found %d"%(len(monitors)))
 
 def find_procs_by_name(name):
     "Return a list of processes matching 'name'."
@@ -55,12 +49,6 @@ def kill_procs_by_name(name, noisy=False):
         first = False
         proc.kill()
 
-# Ensure that Zoom & OBS are not running
-kill_procs_by_name('Zoom', True)
-kill_procs_by_name('OBS', True)
-
-# XXX copy in OBS profile directory
-
 def start_zoom():
     os.startfile(str(path_zoom))
 
@@ -71,11 +59,6 @@ def start_obs():
     os.startfile(path_obs)
     os.chdir(oldpath)
 
-start_obs()
-# XXX wait for OBS to finish starting
-time.sleep(3.75)
-start_zoom()
-
 def minimize_ourselves():
     desktop = Desktop()
     windows = desktop.windows()
@@ -83,43 +66,33 @@ def minimize_ourselves():
     for w in windows:
         txt = w.window_text().lower()
         if "confautomation" in txt:
+            # Don't minimize the development environment!
             if "visual studio" in txt:
                 continue
             w.minimize()
-
-try:
-    minimize_ourselves()
-except Exception:
-    pass
 
 def pop_out_zoom_controls():
     desktop = Desktop()
     zoom = desktop.Zoom_Meeting
 
+    # This sends the keys to open the participants and chats lists.
+    # They must already be selected as "popped out" in Zoom
     zoom.type_keys('%h')
     zoom.type_keys('%u')
     desktop.participants.move_window(30,30)
     desktop.chat.move_window(200,30)
 
-# Wait for user to start meeting, pop out controls
-while True:
-    try:
-        pop_out_zoom_controls()
-        break
-    except Exception:
-        print("Failed to move zoom controls; trying again...")
-        time.sleep(0.25)
+def select_smallest_monitor():
+    smallest=999999
+    global mon
 
-smallest=999999
-mon = 0
+    mon = 0
 
-for i in range(len(monitors)):
-    mon_dims = monitors[i][2]
-    if mon_dims[2] < smallest:
-        smallest = mon_dims[2]
-        mon = i
-
-armTime = 0
+    for i in range(len(monitors)):
+        mon_dims = monitors[i][2]
+        if mon_dims[2] < smallest:
+            smallest = mon_dims[2]
+            mon = i
 
 def move_gallery_to_monitor(num):
     global armTime
@@ -155,9 +128,51 @@ def move_gallery_to_monitor(num):
 
     armTime = time.time()
 
-move_gallery_to_monitor(mon)
+def conference_start():
+    ensure_exists(path_zoom)
+    ensure_exists(path_obs)
 
-import pyhk3
+    global monitors
+
+    monitors = win32api.EnumDisplayMonitors()
+    print(monitors)
+
+    if len(monitors) != 3:
+        show_warning("Expected 3 monitors but found %d"%(len(monitors)))
+
+    # Ensure that Zoom & OBS are not running
+    kill_procs_by_name('Zoom', True)
+    kill_procs_by_name('OBS', True)
+
+    # XXX copy in OBS profile directory
+
+    start_obs()
+
+    # Unfortunately, with OBS starting minimized there is not a wonderful way
+    # to know when it has completed launching.  Instead, we wait a few seconds.
+    # There's no grave consequence if Zoom comes up first, though it is nice
+    # to make this as deterministic as possible.
+    time.sleep(4.5)
+    start_zoom()
+    try:
+        minimize_ourselves()
+    except Exception:
+        pass
+
+    # Wait for user to start meeting, pop out controls
+    while True:
+        try:
+            pop_out_zoom_controls()
+            break
+        except Exception:
+            print("Failed to move zoom controls; trying again...")
+            time.sleep(0.25)
+
+
+    armTime = 0
+    select_smallest_monitor()
+
+    move_gallery_to_monitor(mon)
 
 def key_move_meeting():
     global mon
@@ -173,13 +188,19 @@ def key_move_meeting():
 def key_center_mouse():
     win32api.SetCursorPos((500,500))
 
-hot = pyhk3.pyhk()
+def main():
+    conference_start()
+    hot = pyhk3.pyhk()
 
-# add hotkeys.  Additionally, CTRL-SHIFT-Q exits (built into pyhk3)
-id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting)
-id2 = hot.addHotkey(['Ctrl', 'Alt', 'M'], key_center_mouse)
+    # add hotkeys.  Additionally, CTRL-SHIFT-Q exits (built into pyhk3)
+    id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting)
+    id2 = hot.addHotkey(['Ctrl', 'Alt', 'M'], key_center_mouse)
 
-hot.start()
+    hot.start()
 
-kill_procs_by_name('Zoom')
-kill_procs_by_name('OBS')
+    kill_procs_by_name('Zoom')
+    kill_procs_by_name('OBS')
+
+if __name__ == "__main__":
+    # execute only if run as a script
+    main()
