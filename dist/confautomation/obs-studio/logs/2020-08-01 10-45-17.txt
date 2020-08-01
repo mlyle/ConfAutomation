@@ -1,0 +1,99 @@
+10:45:17.596: CoInitializeEx succeeded: 0x00000001
+10:45:17.596: CPU Name: AMD Ryzen 7 4700U with Radeon Graphics         
+10:45:17.596: CPU Speed: 1996MHz
+10:45:17.596: Physical Cores: 8, Logical Cores: 8
+10:45:17.596: Physical Memory: 15733MB Total, 6830MB Free
+10:45:17.596: Windows Version: 10.0 Build 19041 (release: 2004; revision: 264; 64-bit)
+10:45:17.596: Running as administrator: false
+10:45:17.596: Aero is Enabled (Aero is always on for windows 8 and above)
+10:45:17.596: Windows 10 Gaming Features:
+10:45:17.596: 	Game DVR: On
+10:45:17.598: Sec. Software Status:
+10:45:17.606: 	Microsoft Defender Antivirus: enabled (AV)
+10:45:17.607: 	Windows Firewall: enabled (FW)
+10:45:17.607: Current Date/Time: 2020-08-01, 10:45:17
+10:45:17.608: Browser Hardware Acceleration: true
+10:45:17.608: Portable mode: false
+10:45:18.295: OBS 25.0.8 (64-bit, windows)
+10:45:18.295: ---------------------------------
+10:45:18.296: ---------------------------------
+10:45:18.296: audio settings reset:
+10:45:18.296: 	samples per sec: 44100
+10:45:18.296: 	speakers:        2
+10:45:18.298: ---------------------------------
+10:45:18.298: Initializing D3D11...
+10:45:18.298: Available Video Adapters: 
+10:45:18.300: 	Adapter 0: AMD Radeon(TM) Graphics
+10:45:18.300: 	  Dedicated VRAM: 520933376
+10:45:18.300: 	  Shared VRAM:    3954051072
+10:45:18.300: 	  PCI ID:         1002:1636
+10:45:18.301: 	  Driver Version: 26.20.14036.2002
+10:45:18.301: 	  output 0: pos={0, 0}, size={1920, 1080}, attached=true, refresh=60, name=
+10:45:18.304: Loading up D3D11 on adapter AMD Radeon(TM) Graphics (0)
+10:45:18.343: D3D11 loaded successfully, feature level used: b000
+10:45:18.343: DXGI increase maximum frame latency success
+10:45:18.343: D3D11 GPU priority setup failed (not admin?)
+10:45:18.979: ---------------------------------
+10:45:18.980: video settings reset:
+10:45:18.980: 	base resolution:   1920x1080
+10:45:18.980: 	output resolution: 1280x720
+10:45:18.980: 	downscale filter:  Bicubic
+10:45:18.980: 	fps:               30/1
+10:45:18.980: 	format:            NV12
+10:45:18.980: 	YUV mode:          601/Partial
+10:45:18.980: NV12 texture support enabled
+10:45:18.981: Audio monitoring device:
+10:45:18.981: 	name: Default
+10:45:18.981: 	id: default
+10:45:18.981: ---------------------------------
+10:45:18.986: [CoreAudio encoder]: CoreAudio AAC encoder not installed on the system or couldn't be loaded
+10:45:18.987: Failed to load 'en-US' text for module: 'decklink-ouput-ui.dll'
+10:45:19.250: [AMF] Version 2.7.0 loaded (Compiled: 1.4.14.0, Runtime: 1.4.15.0, Library: 1;4;15;0;19.40.36.02;202004270021;CL#2106339).
+10:45:19.384: [AMF] [Capability Manager] Testing Direct3D 11 Adapter 'AMD Radeon(TM) Graphics (VEN_1002/DEV_1636/SUB_87a9103c/REV_00c2)':
+10:45:19.384:   H264/AVC: Supported
+10:45:19.384:   H265/HEVC: Supported
+10:45:19.384: 
+10:45:19.412: [obs-browser]: Version 2.8.6
+10:45:19.668: VLC found, VLC video source enabled
+10:45:19.678: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed
+10:45:19.680: No blackmagic support
+10:45:19.686: ---------------------------------
+10:45:19.686:   Loaded Modules:
+10:45:19.686:     win-wasapi.dll
+10:45:19.686:     win-mf.dll
+10:45:19.686:     win-dshow.dll
+10:45:19.686:     win-decklink.dll
+10:45:19.686:     win-capture.dll
+10:45:19.686:     vlc-video.dll
+10:45:19.686:     text-freetype2.dll
+10:45:19.686:     rtmp-services.dll
+10:45:19.686:     obs-x264.dll
+10:45:19.686:     obs-vst.dll
+10:45:19.686:     obs-transitions.dll
+10:45:19.686:     obs-text.dll
+10:45:19.686:     obs-qsv11.dll
+10:45:19.686:     obs-outputs.dll
+10:45:19.686:     obs-filters.dll
+10:45:19.686:     obs-ffmpeg.dll
+10:45:19.686:     obs-browser.dll
+10:45:19.687:     image-source.dll
+10:45:19.687:     frontend-tools.dll
+10:45:19.687:     enc-amf.dll
+10:45:19.687:     decklink-ouput-ui.dll
+10:45:19.687:     coreaudio-encoder.dll
+10:45:19.687: ---------------------------------
+10:45:19.687: ==== Startup complete ===============================================
+10:45:19.687: Service '' not found
+10:45:19.694: All scene data cleared
+10:45:19.694: ------------------------------------------------
+10:45:19.743: WASAPI: Device 'Speaker (Realtek(R) Audio)' [48000 Hz] initialized
+10:45:19.743: [Loaded global audio device]: 'Desktop Audio'
+10:45:19.846: WASAPI: Device 'Internal Microphone (AMD Audio Device)' [48000 Hz] initialized
+10:45:19.846: [Loaded global audio device]: 'Mic/Aux'
+10:45:19.846: Switched to scene 'Scene'
+10:45:19.846: ------------------------------------------------
+10:45:19.846: Loaded scenes:
+10:45:19.846: - scene 'Scene':
+10:45:19.846: ------------------------------------------------
+10:45:19.897: adding 46 milliseconds of audio buffering, total audio buffering is now 46 milliseconds (source: Mic/Aux)
+10:45:19.897: 
