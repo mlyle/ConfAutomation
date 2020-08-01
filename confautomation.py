@@ -20,16 +20,19 @@ def copy_over(source, dest):
 
     try:
         shutil.rmtree(dest + "-bak")
+        print("Moved old obs-studio directory to backup")
     except Exception:
         pass
     shutil.move(dest, dest + "-bak")
     shutil.copytree(source, dest)
+    print("Completed copying obs-studio configuration directory")
 
 def copy_obs_profile():
     import sys
 
     prog_path = pathlib.Path(sys.argv[0]).parent.joinpath("obs-studio")
     if not prog_path.exists():
+        print("Skipped copying obs-studio because it's missing in distribution")
         return
 
     dest_path = str(pathlib.Path(winshell.application_data(), "obs-studio"))
