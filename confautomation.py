@@ -168,8 +168,6 @@ def conference_start():
             print("Failed to move zoom controls; trying again...")
             time.sleep(0.25)
 
-
-    armTime = 0
     select_smallest_monitor()
 
     move_gallery_to_monitor(mon)
