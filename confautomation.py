@@ -90,15 +90,14 @@ def pop_out_zoom_controls():
     desktop.participants.move_window(30,30)
     desktop.chat.move_window(200,30)
 
-# XXX wait for user to start meeting, pop out controls
-# Retry getting the zoom meeting window, because it's finicky
-for i in range(3):
+# Wait for user to start meeting, pop out controls
+while True:
     try:
         pop_out_zoom_controls()
         break
     except Exception:
-        print("Failed to move zoom controls; try %d..."%(i))
-        time.sleep(0.5)
+        print("Failed to move zoom controls; trying again...")
+        time.sleep(0.25)
 
 smallest=999999
 mon = 0
@@ -139,6 +138,10 @@ def move_gallery_to_monitor(num):
 
             print(w.client_rect())
 
+            time.sleep(0.5)
+
+            desktop.Zoom_Meeting.type_keys('%f')
+
     armTime = time.time()
 
 move_gallery_to_monitor(mon)
@@ -156,11 +159,14 @@ def key_move_meeting():
     print("moving gallery to monitor %d"%(mon))
     move_gallery_to_monitor(mon)
 
-hot = pyhk3.pyhk()
-print(hot.getHotkeyListNoSingleNoModifiers())
+def key_center_mouse():
+    win32api.SetCursorPos((500,500))
 
-# add hotkey
+hot = pyhk3.pyhk()
+
+# add hotkeys.  Additionally, CTRL-SHIFT-Q exits (built into pyhk3)
 id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting)
+id2 = hot.addHotkey(['Ctrl', 'Alt', 'M'], key_center_mouse)
 
 hot.start()
 

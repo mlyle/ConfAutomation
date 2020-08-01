@@ -4,7 +4,6 @@ block_cipher = None
 
 
 a = Analysis(['confautomation.py'],
-             pathex=['C:\\Users\\ddennis\\Documents\\Testing'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -26,7 +25,8 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=True )
+          console=True,
+          icon='camera-128.ico')
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
