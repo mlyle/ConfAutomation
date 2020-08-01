@@ -1,5 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+datas = Tree('./obs-studio', prefix='obs-studio')
+
 a = Analysis(['confautomation.py'],
              binaries=[],
              datas=[],
@@ -10,6 +12,9 @@ a = Analysis(['confautomation.py'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              noarchive=False)
+
+a.datas += datas
+
 pyz = PYZ(a.pure, a.zipped_data)
 exe = EXE(pyz,
           a.scripts,
