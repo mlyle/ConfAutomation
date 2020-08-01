@@ -9,12 +9,31 @@ import os
 import pathlib
 import pyhk3
 
-
 # XXX these hardcoded paths are unfortunate
 path_zoom = pathlib.Path(winshell.application_data(), 'Zoom', 'bin', 'zoom.exe')
 path_obs = pathlib.Path('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
 
 gallery_arm_time = 0
+
+def copy_over(source, dest):
+    import shutil
+
+    try:
+        shutil.rmtree(dest + "-bak")
+    except Exception:
+        pass
+    shutil.move(dest, dest + "-bak")
+    shutil.copytree(source, dest)
+
+def copy_obs_profile():
+    import sys
+
+    prog_path = pathlib.Path(sys.argv[0]).parent.joinpath("obs-studio")
+    if not prog_path.exists():
+        return
+
+    dest_path = str(pathlib.Path(winshell.application_data(), "obs-studio"))
+    copy_over(str(prog_path), str(dest_path))
 
 def show_warning(text):
     if win32api.MessageBox(0, "Warning: " + text, 'ConfAutomation', 0x1031) != 1:
@@ -142,7 +161,9 @@ def conference_start():
     kill_procs_by_name('Zoom', True)
     kill_procs_by_name('OBS', True)
 
-    # XXX copy in OBS profile directory
+    # copy in OBS profile directory from software distribution--
+    # iff it exists.
+    copy_obs_profile()
 
     start_obs()
 
