@@ -1,5 +1,3 @@
-# pyinstaller --noconfirm confautomation.spec
-
 from pywinauto import Desktop, keyboard
 
 import win32api
