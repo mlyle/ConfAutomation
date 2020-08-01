@@ -31,18 +31,18 @@ def find_procs_by_name(name):
             ls.append(p)
     return ls
 
-def kill_procs_by_name(name):
+def kill_procs_by_name(name, noisy=False):
     first = True
     procs = find_procs_by_name(name)
     for proc in procs:
-        if first:
+        if noisy and first:
             show_warning("%s is already running; will stop and restart it!" % name)
         first = False
         proc.kill()
 
 # Ensure that Zoom & OBS are not running
-kill_procs_by_name('Zoom')
-kill_procs_by_name('OBS')
+kill_procs_by_name('Zoom', True)
+kill_procs_by_name('OBS', True)
 
 # XXX copy in OBS profile directory
 
@@ -153,6 +153,7 @@ def key_move_meeting():
     if mon >= len(monitors):
         mon = 0
 
+    print("moving gallery to monitor %d"%(mon))
     move_gallery_to_monitor(mon)
 
 hot = pyhk3.pyhk()
@@ -162,3 +163,6 @@ print(hot.getHotkeyListNoSingleNoModifiers())
 id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting)
 
 hot.start()
+
+kill_procs_by_name('Zoom')
+kill_procs_by_name('OBS')
