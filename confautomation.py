@@ -5,16 +5,65 @@ from pywinauto import Desktop, keyboard
 import win32api
 import time
 
+import psutil
+
 monitors = win32api.EnumDisplayMonitors()
 print(monitors)
 
 def show_warning(text):
-    if win32api.MessageBox(0, text, 'ConfAutomation', 0x1031) != 1:
+    if win32api.MessageBox(0, "Warning: " + text, 'ConfAutomation', 0x1031) != 1:
         import sys
         sys.exit()
 
 if len(monitors) != 3:
     show_warning("Expected 3 monitors but found %d"%(len(monitors)))
+
+def find_procs_by_name(name):
+    "Return a list of processes matching 'name'."
+    ls = []
+    for p in psutil.process_iter(['name']):
+        psname = p.info['name']
+
+        if psname is None:
+            continue
+
+        if name.lower() in psname.lower():
+            ls.append(p)
+    return ls
+
+def kill_procs_by_name(name):
+    first = True
+    procs = find_procs_by_name(name)
+    for proc in procs:
+        if first:
+            show_warning("%s is already running; will stop and restart it!" % name)
+        first = False
+        proc.kill()
+
+# Ensure that Zoom & OBS are not running
+kill_procs_by_name('Zoom')
+kill_procs_by_name('OBS')
+
+# XXX copy in OBS profile directory
+
+def start_zoom():
+    import winshell
+    import os
+    # XXX This is a hardcoded path for Zoom which is unfortunate
+    os.startfile(winshell.application_data()+'\\Zoom\\bin\\Zoom.exe')
+
+def start_obs():
+    import os
+    oldpath = os.getcwd()
+
+    os.chdir('C:\\Program Files\\obs-studio\\bin\\64bit')
+    os.startfile('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
+    os.chdir(oldpath)
+
+start_obs()
+# XXX wait for OBS to finish starting
+time.sleep(3.75)
+start_zoom()
 
 def minimize_ourselves():
     desktop = Desktop()
@@ -41,6 +90,7 @@ def pop_out_zoom_controls():
     desktop.participants.move_window(30,30)
     desktop.chat.move_window(200,30)
 
+# XXX wait for user to start meeting, pop out controls
 # Retry getting the zoom meeting window, because it's finicky
 for i in range(3):
     try:
