@@ -1,6 +1,7 @@
 from pywinauto import Desktop, keyboard
 
-import win32api
+import win32api, win32event
+from winerror import ERROR_ALREADY_EXISTS
 import time
 
 import psutil
@@ -239,8 +240,19 @@ def key_center_mouse():
     """Moves the mouse to 500,500; somewhere in the middle of main display"""
     win32api.SetCursorPos((500,500))
 
+def check_already_running():
+    global mutex
+
+    mutex = win32event.CreateMutex(None, False, "Oakwood_confautomation")
+    if win32api.GetLastError() == ERROR_ALREADY_EXISTS:
+        show_warning("There is already another copy of ConfAutomation running; please exit it.")
+        import sys
+        sys.exit(1)
+
 def main():
     """Main function: starts conference & waits for hotkeys, coordinates shutdown"""
+    check_already_running()
+
     conference_start()
     hot = pyhk3.pyhk()
 
