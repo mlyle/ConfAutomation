@@ -16,6 +16,12 @@ path_obs = pathlib.Path('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
 gallery_arm_time = 0
 
 def copy_over(source, dest):
+    """Copy a path from source to dest, making a backup.
+
+    Keyword arguments:
+    source -- the source path
+    dest -- the dest path, including the destination directory name
+    """
     import shutil
 
     try:
@@ -28,6 +34,7 @@ def copy_over(source, dest):
     print("Completed copying obs-studio configuration directory")
 
 def copy_obs_profile():
+    """Copy the OBS profile from our installation directory to %APPDATA%"""
     import sys
 
     prog_path = pathlib.Path(sys.argv[0]).parent.joinpath("obs-studio")
@@ -39,16 +46,18 @@ def copy_obs_profile():
     copy_over(str(prog_path), str(dest_path))
 
 def show_warning(text):
+    """Open a warning dialog box, allowing the user to choose to exit"""
     if win32api.MessageBox(0, "Warning: " + text, 'ConfAutomation', 0x1031) != 1:
         import sys
         sys.exit()
 
 def ensure_exists(path):
+    """Warn if a path doesn't exist"""
     if not path.exists():
         show_warning("Could not find %s which is REQUIRED FOR OPERATION"%(str(path)))
 
 def find_procs_by_name(name):
-    "Return a list of processes matching 'name'."
+    """Return a list of processes matching 'name'."""
     ls = []
     for p in psutil.process_iter(['name']):
         psname = p.info['name']
@@ -61,6 +70,7 @@ def find_procs_by_name(name):
     return ls
 
 def kill_procs_by_name(name, noisy=False):
+    """Forcibly/immediately terminate processes matching name"""
     first = True
     procs = find_procs_by_name(name)
     for proc in procs:
@@ -70,9 +80,11 @@ def kill_procs_by_name(name, noisy=False):
         proc.kill()
 
 def start_zoom():
+    """Launch Zoom process"""
     os.startfile(str(path_zoom))
 
 def start_obs():
+    """Start OpenBroadcastSystem"""
     oldpath = os.getcwd()
 
     os.chdir(str(path_obs.parent))
@@ -80,6 +92,7 @@ def start_obs():
     os.chdir(oldpath)
 
 def minimize_ourselves():
+    """Find our console window and minimize it"""
     desktop = Desktop()
     windows = desktop.windows()
 
@@ -92,6 +105,7 @@ def minimize_ourselves():
             w.minimize()
 
 def pop_out_zoom_controls():
+    """Find the Zoom Meeting window, and type keys that pop out key windows"""
     desktop = Desktop()
     zoom = desktop.Zoom_Meeting
 
@@ -103,6 +117,8 @@ def pop_out_zoom_controls():
     desktop.chat.move_window(200,30)
 
 def select_smallest_monitor():
+    """Scans the monitor array, and finds the lowest resolution monitor"""
+    # XXX should return smallest mon idx instead of setting mon
     smallest=999999
     global mon
 
@@ -115,6 +131,7 @@ def select_smallest_monitor():
             mon = i
 
 def move_gallery_to_monitor(num):
+    """Moves the gallery to the monitor index specified by num"""
     global gallery_arm_time
 
     now = time.time()
@@ -149,6 +166,16 @@ def move_gallery_to_monitor(num):
     gallery_arm_time = time.time()
 
 def conference_start():
+    """Performs key conference start activities.
+
+    - Makes sure that the executables we need exists.
+    - Gathers a monitor array and checks for sanity
+    - Terminates any existing Zoom/OBS process
+    - Copies the OBS profile into place
+    - Starts OBS
+    - Starts Zoom
+    - Waits for conference to start and positions Zoom windows
+    """
     ensure_exists(path_zoom)
     ensure_exists(path_obs)
 
@@ -195,6 +222,7 @@ def conference_start():
     move_gallery_to_monitor(mon)
 
 def key_move_meeting():
+    """Macro key handler: move gallery view to next monitor"""
     global mon
 
     mon = mon + 1
@@ -206,9 +234,11 @@ def key_move_meeting():
     move_gallery_to_monitor(mon)
 
 def key_center_mouse():
+    """Moves the mouse to 500,500; somewhere in the middle of main display"""
     win32api.SetCursorPos((500,500))
 
 def main():
+    """Main function: starts conference & waits for hotkeys, coordinates shutdown"""
     conference_start()
     hot = pyhk3.pyhk()
 
