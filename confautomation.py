@@ -209,6 +209,8 @@ def conference_start():
         pass
 
     # Wait for user to start meeting, pop out controls
+    # XXX the program is in an unfortunate "limbo" during this interval;
+    # I worry about user launching multiple times, etc.
     while True:
         try:
             pop_out_zoom_controls()
