@@ -1,0 +1,38 @@
+[
+	{
+		"version": "25.0",
+		"RC": 1,
+		"url": "https://obsproject.com/startup/please-update",
+		"increment": 5
+	},
+	{
+		"version": "25.0",
+		"RC": 2,
+		"url": "https://obsproject.com/startup/please-update",
+		"increment": 4
+	},
+	{
+		"version": "25.0",
+		"RC": 3,
+		"url": "https://obsproject.com/startup/please-update",
+		"increment": 4
+	},
+	{
+		"version": "25.0",
+		"RC": 4,
+		"url": "https://obsproject.com/startup/please-update",
+		"increment": 3
+	},
+	{
+		"version": "25.0",
+		"RC": 5,
+		"url": "https://obsproject.com/startup/please-update",
+		"increment": 2
+	},
+	{
+		"version": "25.0",
+		"RC": 6,
+		"url": "https://obsproject.com/startup/obs-studio-25-0-rc6",
+		"increment": 1
+	}
+]
