@@ -194,6 +194,11 @@ def conference_start():
     ensure_exists(path_zoom)
     ensure_exists(path_obs)
 
+    try:
+        minimize_ourselves()
+    except Exception:
+        pass
+
     global monitors
 
     monitors = win32api.EnumDisplayMonitors()
@@ -218,14 +223,11 @@ def conference_start():
     # to make this as deterministic as possible.
     time.sleep(4.5)
     start_zoom()
-    try:
-        minimize_ourselves()
-    except Exception:
-        pass
 
     # Wait for user to start meeting, pop out controls
     # XXX the program is in an unfortunate "limbo" during this interval;
     # I worry about user launching multiple times, etc.
+    # Maybe detect if Zoom or OBS exits?
     while True:
         try:
             pop_out_zoom_controls()
