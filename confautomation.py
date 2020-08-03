@@ -39,25 +39,43 @@ def copy_over(source, dest):
     """
     import shutil
 
+    bak_path = dest + '-bak'
+
     try:
-        shutil.rmtree(dest + "-bak")
-        print("Moved old obs-studio directory to backup")
+        shutil.rmtree(bak_path)
+        print("removed %s"%(bak_path))
     except Exception:
         pass
-    shutil.move(dest, dest + "-bak")
+
+    try:
+        print("moving %s to %s"%(dest, bak_path))
+        shutil.move(dest, bak_path)
+        print("moved %s to %s"%(dest, bak_path))
+    except Exception:
+        pass
+
+    print("copying %s to %s"%(source, dest))
     shutil.copytree(source, dest)
-    print("Completed copying obs-studio configuration directory")
+    print("Completed copy.")
 
 def copy_obs_profile():
     """Copy the OBS profile from our installation directory to %APPDATA%"""
     import sys
 
-    prog_path = pathlib.Path(sys.argv[0]).parent.joinpath("obs-studio")
-    if not prog_path.exists():
-        print("Skipped copying obs-studio because it's missing in distribution")
+    dest_path = pathlib.Path(winshell.application_data(), "obs-studio")
+
+    master_path = pathlib.Path(winshell.application_data(), "obs-master")
+
+    if master_path.exists():
+        print("Copying profile from master path")
+        copy_over(str(master_path), str(dest_path))
         return
 
-    dest_path = str(pathlib.Path(winshell.application_data(), "obs-studio"))
+    prog_path = pathlib.Path(sys.argv[0]).parent.joinpath("obs-studio")
+    if not prog_path.exists():
+        print("Skipped copying obs-studio; no master copy and no copy in distribution")
+        return
+
     copy_over(str(prog_path), str(dest_path))
 
 def show_warning(text):
@@ -178,6 +196,7 @@ def move_gallery_to_monitor(num):
 
             desktop.Zoom_Meeting.type_keys('%f')
 
+    print("Completed gallery move, setting arm_time")
     gallery_arm_time = time.time()
 
 def conference_start():
