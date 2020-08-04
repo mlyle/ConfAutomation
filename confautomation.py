@@ -140,7 +140,10 @@ def minimize_ourselves():
 def pop_out_zoom_controls():
     """Find the Zoom Meeting window, and type keys that pop out key windows"""
     desktop = Desktop()
-    zoom = desktop.Zoom_Meeting
+
+    # Be specific, match window name exactly.  Because fuzzy matching gets
+    # the wrong window ("Zoom" or "Zoom Cloud Meetings")
+    zoom = desktop.window(title_re = '^Zoom Meeting$')
 
     # This sends the keys to open the participants and chats lists.
     # They must already be selected as "popped out" in Zoom
@@ -191,7 +194,7 @@ def move_gallery_to_monitor(num):
 
             print(w.client_rect())
 
-            time.sleep(0.5)
+            time.sleep(1.2)
 
             desktop.Zoom_Meeting.type_keys('%f')
 
