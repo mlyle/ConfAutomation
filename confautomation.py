@@ -149,19 +149,18 @@ def pop_out_zoom_controls():
     desktop.participants.move_window(30,30)
     desktop.chat.move_window(200,30)
 
-def select_smallest_monitor():
-    """Scans the monitor array, and finds the lowest resolution monitor"""
-    # XXX should return smallest mon idx instead of setting mon
+def get_smallest_monitor():
+    """Scans the monitor array, and returns the lowest resolution monitor"""
     smallest=999999
-    global mon
-
-    mon = 0
+    smallidx = 0
 
     for i in range(len(monitors)):
         mon_dims = monitors[i][2]
         if mon_dims[2] < smallest:
             smallest = mon_dims[2]
-            mon = i
+            smallidx = i
+
+    return smallidx
 
 def move_gallery_to_monitor(num):
     """Moves the gallery to the monitor index specified by num"""
@@ -255,7 +254,9 @@ def conference_start():
             print("Failed to move zoom controls; trying again...")
             time.sleep(0.25)
 
-    select_smallest_monitor()
+    global mon
+
+    mon = get_smallest_monitor()
 
     move_gallery_to_monitor(mon)
 
