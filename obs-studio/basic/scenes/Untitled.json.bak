@@ -117,7 +117,7 @@
         },
         "id": "wasapi_input_capture",
         "mixers": 255,
-        "monitoring_type": 2,
+        "monitoring_type": 0,
         "muted": false,
         "name": "Mic/Aux",
         "prev_ver": 419430408,
@@ -127,7 +127,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.1.00000000}.{b2fe920a-e053-4eb0-ab30-630189d88d19}"
+            "device_id": "{0.0.1.00000000}.{72fbe4cb-d87a-42af-a931-deea2930374d}"
         },
         "sync": 0,
         "versioned_id": "wasapi_input_capture",
@@ -292,7 +292,9 @@
                 "push-to-mute-delay": 0,
                 "push-to-talk": false,
                 "push-to-talk-delay": 0,
-                "settings": {},
+                "settings": {
+                    "threshold": -4.0
+                },
                 "sync": 0,
                 "versioned_id": "limiter_filter",
                 "volume": 1.0
@@ -307,7 +309,7 @@
         },
         "id": "wasapi_input_capture",
         "mixers": 255,
-        "monitoring_type": 2,
+        "monitoring_type": 0,
         "muted": false,
         "name": "Mic/Aux 2",
         "prev_ver": 419430408,
@@ -317,7 +319,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.1.00000000}.{b30627ce-ff6d-437b-80e7-c6fdeff0d492}",
+            "device_id": "{0.0.1.00000000}.{a72ac4c4-e92f-481f-a3d2-b4916ed0e64b}",
             "use_device_timing": false
         },
         "sync": 0,
@@ -338,7 +340,7 @@
         },
         "id": "wasapi_output_capture",
         "mixers": 255,
-        "monitoring_type": 2,
+        "monitoring_type": 0,
         "muted": false,
         "name": "Desktop Audio",
         "prev_ver": 419430408,
@@ -348,14 +350,14 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.0.00000000}.{d468d4fe-fea8-4c82-a548-9ffd8d151ab0}"
+            "device_id": "{0.0.0.00000000}.{4e7d05a7-b02e-48a4-9220-e644495fbbd8}"
         },
         "sync": 0,
         "versioned_id": "wasapi_output_capture",
         "volume": 1.0
     },
-    "current_program_scene": "Classroom View",
-    "current_scene": "Classroom View",
+    "current_program_scene": "Elmo View",
+    "current_scene": "Elmo View",
     "current_transition": "Fade",
     "groups": [],
     "modules": {
@@ -410,13 +412,7 @@
             "name": "Fade"
         }
     ],
-    "saved_projectors": [
-        {
-            "geometry": "AdnQywACAAAAAAVWAAAAAAAADNUAAAQ3AAAFVgAAAAAAAAzVAAAEJAAAAAEABAAAB4A=",
-            "monitor": 1,
-            "type": 2
-        }
-    ],
+    "saved_projectors": [],
     "scaling_enabled": false,
     "scaling_level": 0,
     "scaling_off_x": 0.0,

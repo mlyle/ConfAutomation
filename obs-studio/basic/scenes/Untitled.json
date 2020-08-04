@@ -117,7 +117,7 @@
         },
         "id": "wasapi_input_capture",
         "mixers": 255,
-        "monitoring_type": 2,
+        "monitoring_type": 0,
         "muted": false,
         "name": "Mic/Aux",
         "prev_ver": 419430408,
@@ -127,7 +127,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.1.00000000}.{b2fe920a-e053-4eb0-ab30-630189d88d19}"
+            "device_id": "{0.0.1.00000000}.{72fbe4cb-d87a-42af-a931-deea2930374d}"
         },
         "sync": 0,
         "versioned_id": "wasapi_input_capture",
@@ -309,7 +309,7 @@
         },
         "id": "wasapi_input_capture",
         "mixers": 255,
-        "monitoring_type": 2,
+        "monitoring_type": 0,
         "muted": false,
         "name": "Mic/Aux 2",
         "prev_ver": 419430408,
@@ -319,7 +319,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.1.00000000}.{b30627ce-ff6d-437b-80e7-c6fdeff0d492}",
+            "device_id": "{0.0.1.00000000}.{a72ac4c4-e92f-481f-a3d2-b4916ed0e64b}",
             "use_device_timing": false
         },
         "sync": 0,
@@ -340,7 +340,7 @@
         },
         "id": "wasapi_output_capture",
         "mixers": 255,
-        "monitoring_type": 2,
+        "monitoring_type": 0,
         "muted": false,
         "name": "Desktop Audio",
         "prev_ver": 419430408,
@@ -350,7 +350,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.0.00000000}.{d468d4fe-fea8-4c82-a548-9ffd8d151ab0}"
+            "device_id": "{0.0.0.00000000}.{4e7d05a7-b02e-48a4-9220-e644495fbbd8}"
         },
         "sync": 0,
         "versioned_id": "wasapi_output_capture",
@@ -414,8 +414,8 @@
     ],
     "saved_projectors": [
         {
-            "geometry": "AdnQywACAAAAAAVWAAAAAAAADNUAAAQ3AAAFVgAAAAAAAAzVAAAEJAAAAAEABAAAB4A=",
-            "monitor": 1,
+            "geometry": "AdnQywACAAAAAAVWAAAAAAAADNUAAAQ3AAAFVgAAAAAAAAzVAAAEJAAAAAIABAAAB4A=",
+            "monitor": 2,
             "type": 2
         }
     ],
@@ -448,73 +448,6 @@
             "enabled": true,
             "flags": 0,
             "hotkeys": {
-                "OBSBasic.SelectScene": [
-                    {
-                        "alt": true,
-                        "control": true,
-                        "key": "OBS_KEY_E"
-                    }
-                ],
-                "libobs.hide_scene_item.Elmo": [],
-                "libobs.show_scene_item.Elmo": []
-            },
-            "id": "scene",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "Elmo View",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {
-                "custom_size": false,
-                "id_counter": 2,
-                "items": [
-                    {
-                        "align": 5,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "bounds_align": 0,
-                        "bounds_type": 0,
-                        "crop_bottom": 0,
-                        "crop_left": 0,
-                        "crop_right": 0,
-                        "crop_top": 0,
-                        "group_item_backup": false,
-                        "id": 2,
-                        "locked": false,
-                        "name": "Elmo",
-                        "pos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "private_settings": {},
-                        "rot": 0.0,
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        },
-                        "scale_filter": "disable",
-                        "visible": true
-                    }
-                ]
-            },
-            "sync": 0,
-            "versioned_id": "scene",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {
                 "libobs.mute": [],
                 "libobs.push-to-mute": [],
                 "libobs.push-to-talk": [],
@@ -523,8 +456,8 @@
             "id": "dshow_input",
             "mixers": 255,
             "monitoring_type": 0,
-            "muted": true,
-            "name": "Video Capture Device",
+            "muted": false,
+            "name": "Laptop Cam",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -532,12 +465,8 @@
             "push-to-talk": false,
             "push-to-talk-delay": 0,
             "settings": {
-                "active": true,
-                "last_resolution": "1280x720",
-                "last_video_device_id": "PTZ Pro 2:\\\\?\\usb#22vid_046d&pid_085f&mi_00#22b&17f87f05&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
-                "res_type": 1,
-                "resolution": "1280x720",
-                "video_device_id": "PTZ Pro 2:\\\\?\\usb#22vid_046d&pid_085f&mi_00#22b&17f87f05&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
+                "last_video_device_id": "Integrated Webcam:\\\\?\\usb#22vid_1bcf&pid_2b98&mi_00#226&1cae8094&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+                "video_device_id": "Integrated Webcam:\\\\?\\usb#22vid_1bcf&pid_2b98&mi_00#226&1cae8094&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
             },
             "sync": 0,
             "versioned_id": "dshow_input",
@@ -554,17 +483,17 @@
                     {
                         "alt": true,
                         "control": true,
-                        "key": "OBS_KEY_C"
+                        "key": "OBS_KEY_L"
                     }
                 ],
-                "libobs.hide_scene_item.Video Capture Device": [],
-                "libobs.show_scene_item.Video Capture Device": []
+                "libobs.hide_scene_item.Laptop Cam": [],
+                "libobs.show_scene_item.Laptop Cam": []
             },
             "id": "scene",
             "mixers": 0,
             "monitoring_type": 0,
             "muted": false,
-            "name": "Classroom View",
+            "name": "Laptop Camera",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -573,7 +502,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 2,
+                "id_counter": 1,
                 "items": [
                     {
                         "align": 5,
@@ -590,7 +519,7 @@
                         "group_item_backup": false,
                         "id": 1,
                         "locked": false,
-                        "name": "Video Capture Device",
+                        "name": "Laptop Cam",
                         "pos": {
                             "x": 0.0,
                             "y": 0.0
@@ -616,17 +545,45 @@
             "deinterlace_mode": 0,
             "enabled": true,
             "flags": 0,
-            "hotkeys": {
-                "libobs.mute": [],
-                "libobs.push-to-mute": [],
-                "libobs.push-to-talk": [],
-                "libobs.unmute": []
-            },
-            "id": "dshow_input",
-            "mixers": 255,
+            "hotkeys": {},
+            "id": "monitor_capture",
+            "mixers": 0,
             "monitoring_type": 0,
             "muted": false,
-            "name": "Elmo",
+            "name": "Display Capture",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {},
+            "sync": 0,
+            "versioned_id": "monitor_capture",
+            "volume": 1.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {
+                "OBSBasic.SelectScene": [
+                    {
+                        "alt": true,
+                        "control": true,
+                        "key": "OBS_KEY_S"
+                    }
+                ],
+                "libobs.hide_scene_item.Display Capture": [],
+                "libobs.show_scene_item.Display Capture": []
+            },
+            "id": "scene",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "Laptop Screen",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -634,17 +591,43 @@
             "push-to-talk": false,
             "push-to-talk-delay": 0,
             "settings": {
-                "active": true,
-                "frame_interval": -1,
-                "last_resolution": "1280x720",
-                "last_video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#226&2a7f95a&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
-                "res_type": 1,
-                "resolution": "1280x720",
-                "video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#226&2a7f95a&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
+                "custom_size": false,
+                "id_counter": 1,
+                "items": [
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
+                        "id": 1,
+                        "locked": false,
+                        "name": "Display Capture",
+                        "pos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 0.93777453899383545,
+                            "y": 0.9375
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
+                    }
+                ]
             },
             "sync": 0,
-            "versioned_id": "dshow_input",
-            "volume": 0.0
+            "versioned_id": "scene",
+            "volume": 1.0
         },
         {
             "balance": 0.5,
@@ -751,21 +734,16 @@
             "enabled": true,
             "flags": 0,
             "hotkeys": {
-                "OBSBasic.SelectScene": [
-                    {
-                        "alt": true,
-                        "control": true,
-                        "key": "OBS_KEY_S"
-                    }
-                ],
-                "libobs.hide_scene_item.Display Capture": [],
-                "libobs.show_scene_item.Display Capture": []
+                "libobs.mute": [],
+                "libobs.push-to-mute": [],
+                "libobs.push-to-talk": [],
+                "libobs.unmute": []
             },
-            "id": "scene",
-            "mixers": 0,
+            "id": "dshow_input",
+            "mixers": 255,
             "monitoring_type": 0,
             "muted": false,
-            "name": "Laptop Screen",
+            "name": "Elmo",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -773,66 +751,17 @@
             "push-to-talk": false,
             "push-to-talk-delay": 0,
             "settings": {
-                "custom_size": false,
-                "id_counter": 1,
-                "items": [
-                    {
-                        "align": 5,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "bounds_align": 0,
-                        "bounds_type": 0,
-                        "crop_bottom": 0,
-                        "crop_left": 0,
-                        "crop_right": 0,
-                        "crop_top": 0,
-                        "group_item_backup": false,
-                        "id": 1,
-                        "locked": false,
-                        "name": "Display Capture",
-                        "pos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "private_settings": {},
-                        "rot": 0.0,
-                        "scale": {
-                            "x": 0.93777453899383545,
-                            "y": 0.9375
-                        },
-                        "scale_filter": "disable",
-                        "visible": true
-                    }
-                ]
+                "active": true,
+                "frame_interval": -1,
+                "last_resolution": "1280x720",
+                "last_video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#226&2a7f95a&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+                "res_type": 1,
+                "resolution": "1280x720",
+                "video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#226&2a7f95a&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
             },
             "sync": 0,
-            "versioned_id": "scene",
-            "volume": 1.0
-        },
-        {
-            "balance": 0.5,
-            "deinterlace_field_order": 0,
-            "deinterlace_mode": 0,
-            "enabled": true,
-            "flags": 0,
-            "hotkeys": {},
-            "id": "monitor_capture",
-            "mixers": 0,
-            "monitoring_type": 0,
-            "muted": false,
-            "name": "Display Capture",
-            "prev_ver": 419430408,
-            "private_settings": {},
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "settings": {},
-            "sync": 0,
-            "versioned_id": "monitor_capture",
-            "volume": 1.0
+            "versioned_id": "dshow_input",
+            "volume": 0.0
         },
         {
             "balance": 0.5,
@@ -845,17 +774,17 @@
                     {
                         "alt": true,
                         "control": true,
-                        "key": "OBS_KEY_L"
+                        "key": "OBS_KEY_C"
                     }
                 ],
-                "libobs.hide_scene_item.Laptop Cam": [],
-                "libobs.show_scene_item.Laptop Cam": []
+                "libobs.hide_scene_item.Video Capture Device": [],
+                "libobs.show_scene_item.Video Capture Device": []
             },
             "id": "scene",
             "mixers": 0,
             "monitoring_type": 0,
             "muted": false,
-            "name": "Laptop Camera",
+            "name": "Classroom View",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -864,7 +793,7 @@
             "push-to-talk-delay": 0,
             "settings": {
                 "custom_size": false,
-                "id_counter": 1,
+                "id_counter": 2,
                 "items": [
                     {
                         "align": 5,
@@ -881,7 +810,7 @@
                         "group_item_backup": false,
                         "id": 1,
                         "locked": false,
-                        "name": "Laptop Cam",
+                        "name": "Video Capture Device",
                         "pos": {
                             "x": 0.0,
                             "y": 0.0
@@ -916,8 +845,8 @@
             "id": "dshow_input",
             "mixers": 255,
             "monitoring_type": 0,
-            "muted": false,
-            "name": "Laptop Cam",
+            "muted": true,
+            "name": "Video Capture Device",
             "prev_ver": 419430408,
             "private_settings": {},
             "push-to-mute": false,
@@ -925,12 +854,83 @@
             "push-to-talk": false,
             "push-to-talk-delay": 0,
             "settings": {
-                "last_video_device_id": "Integrated Webcam:\\\\?\\usb#22vid_1bcf&pid_2b98&mi_00#226&1cae8094&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
-                "video_device_id": "Integrated Webcam:\\\\?\\usb#22vid_1bcf&pid_2b98&mi_00#226&1cae8094&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
+                "active": true,
+                "last_resolution": "1280x720",
+                "last_video_device_id": "PTZ Pro 2:\\\\?\\usb#22vid_046d&pid_085f&mi_00#22b&17f87f05&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+                "res_type": 1,
+                "resolution": "1280x720",
+                "video_device_id": "PTZ Pro 2:\\\\?\\usb#22vid_046d&pid_085f&mi_00#22b&17f87f05&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
             },
             "sync": 0,
             "versioned_id": "dshow_input",
             "volume": 0.0
+        },
+        {
+            "balance": 0.5,
+            "deinterlace_field_order": 0,
+            "deinterlace_mode": 0,
+            "enabled": true,
+            "flags": 0,
+            "hotkeys": {
+                "OBSBasic.SelectScene": [
+                    {
+                        "alt": true,
+                        "control": true,
+                        "key": "OBS_KEY_E"
+                    }
+                ],
+                "libobs.hide_scene_item.Elmo": [],
+                "libobs.show_scene_item.Elmo": []
+            },
+            "id": "scene",
+            "mixers": 0,
+            "monitoring_type": 0,
+            "muted": false,
+            "name": "Elmo View",
+            "prev_ver": 419430408,
+            "private_settings": {},
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "settings": {
+                "custom_size": false,
+                "id_counter": 2,
+                "items": [
+                    {
+                        "align": 5,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "bounds_align": 0,
+                        "bounds_type": 0,
+                        "crop_bottom": 0,
+                        "crop_left": 0,
+                        "crop_right": 0,
+                        "crop_top": 0,
+                        "group_item_backup": false,
+                        "id": 2,
+                        "locked": false,
+                        "name": "Elmo",
+                        "pos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "private_settings": {},
+                        "rot": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "scale_filter": "disable",
+                        "visible": true
+                    }
+                ]
+            },
+            "sync": 0,
+            "versioned_id": "scene",
+            "volume": 1.0
         }
     ],
     "transition_duration": 300,
