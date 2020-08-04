@@ -151,7 +151,7 @@ def pop_out_zoom_controls():
 
 def get_smallest_monitor():
     """Scans the monitor array, and returns the lowest resolution monitor"""
-    smallest=999999
+    smallest = 999999
     smallidx = 0
 
     for i in range(len(monitors)):

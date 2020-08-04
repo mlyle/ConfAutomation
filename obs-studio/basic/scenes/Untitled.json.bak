@@ -117,7 +117,7 @@
         },
         "id": "wasapi_input_capture",
         "mixers": 255,
-        "monitoring_type": 0,
+        "monitoring_type": 2,
         "muted": false,
         "name": "Mic/Aux",
         "prev_ver": 419430408,
@@ -127,7 +127,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.1.00000000}.{72fbe4cb-d87a-42af-a931-deea2930374d}"
+            "device_id": "{0.0.1.00000000}.{79791d6a-84ae-4d7b-a8ce-a2bde89d8170}"
         },
         "sync": 0,
         "versioned_id": "wasapi_input_capture",
@@ -309,7 +309,7 @@
         },
         "id": "wasapi_input_capture",
         "mixers": 255,
-        "monitoring_type": 0,
+        "monitoring_type": 2,
         "muted": false,
         "name": "Mic/Aux 2",
         "prev_ver": 419430408,
@@ -340,7 +340,7 @@
         },
         "id": "wasapi_output_capture",
         "mixers": 255,
-        "monitoring_type": 0,
+        "monitoring_type": 2,
         "muted": false,
         "name": "Desktop Audio",
         "prev_ver": 419430408,
@@ -356,8 +356,8 @@
         "versioned_id": "wasapi_output_capture",
         "volume": 1.0
     },
-    "current_program_scene": "Elmo View",
-    "current_scene": "Elmo View",
+    "current_program_scene": "Classroom View",
+    "current_scene": "Classroom View",
     "current_transition": "Fade",
     "groups": [],
     "modules": {
@@ -412,7 +412,13 @@
             "name": "Fade"
         }
     ],
-    "saved_projectors": [],
+    "saved_projectors": [
+        {
+            "geometry": "AdnQywACAAAAAAVWAAAAAAAADNUAAAQ3AAAFVgAAAAAAAAzVAAAEJAAAAAIABAAAB4A=",
+            "monitor": 2,
+            "type": 2
+        }
+    ],
     "scaling_enabled": false,
     "scaling_level": 0,
     "scaling_off_x": 0.0,
