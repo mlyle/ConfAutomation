@@ -127,7 +127,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.1.00000000}.{678abab7-f372-4fa3-a9c2-83e0749d9bf2}"
+            "device_id": "{0.0.1.00000000}.{ffffffff-f372-4fa3-a9c2-83e0749d9bf2}"
         },
         "sync": 0,
         "versioned_id": "wasapi_input_capture",
@@ -319,7 +319,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.1.00000000}.{99f0235a-3399-4802-b215-7dbd1ce047a3}",
+            "device_id": "{0.0.1.00000000}.{ffffffff-3399-4802-b215-7dbd1ce047a3}",
             "use_device_timing": false
         },
         "sync": 0,
@@ -350,7 +350,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.0.00000000}.{fa539ad9-e5c4-4037-888a-8a7d5bf7e44f}"
+            "device_id": "{0.0.0.00000000}.{ffffffff-e5c4-4037-888a-8a7d5bf7e44f}"
         },
         "sync": 0,
         "versioned_id": "wasapi_output_capture",
@@ -528,10 +528,10 @@
             "settings": {
                 "active": true,
                 "last_resolution": "1280x720",
-                "last_video_device_id": "PTZ Pro 2:\\\\?\\usb#22vid_046d&pid_085f&mi_00#22b&17f87f05&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+                "last_video_device_id": "",
                 "res_type": 1,
                 "resolution": "1280x720",
-                "video_device_id": "PTZ Pro 2:\\\\?\\usb#22vid_046d&pid_085f&mi_00#22b&17f87f05&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
+                "video_device_id": ""
             },
             "sync": 0,
             "versioned_id": "dshow_input",
@@ -631,10 +631,10 @@
                 "active": true,
                 "frame_interval": -1,
                 "last_resolution": "1280x720",
-                "last_video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#228&19740492&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+                "last_video_device_id": "",
                 "res_type": 1,
                 "resolution": "1280x720",
-                "video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#228&19740492&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
+                "video_device_id": ""
             },
             "sync": 0,
             "versioned_id": "dshow_input",
@@ -919,8 +919,8 @@
             "push-to-talk": false,
             "push-to-talk-delay": 0,
             "settings": {
-                "last_video_device_id": "Integrated Webcam:\\\\?\\usb#22vid_1bcf&pid_2b98&mi_00#226&1cae8094&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
-                "video_device_id": "Integrated Webcam:\\\\?\\usb#22vid_1bcf&pid_2b98&mi_00#226&1cae8094&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
+                "last_video_device_id": "",
+                "video_device_id": ""
             },
             "sync": 0,
             "versioned_id": "dshow_input",
