@@ -127,7 +127,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.1.00000000}.{79791d6a-84ae-4d7b-a8ce-a2bde89d8170}"
+            "device_id": "{0.0.1.00000000}.{678abab7-f372-4fa3-a9c2-83e0749d9bf2}"
         },
         "sync": 0,
         "versioned_id": "wasapi_input_capture",
@@ -319,7 +319,7 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.1.00000000}.{a72ac4c4-e92f-481f-a3d2-b4916ed0e64b}",
+            "device_id": "{0.0.1.00000000}.{99f0235a-3399-4802-b215-7dbd1ce047a3}",
             "use_device_timing": false
         },
         "sync": 0,
@@ -350,14 +350,14 @@
         "push-to-talk": false,
         "push-to-talk-delay": 0,
         "settings": {
-            "device_id": "{0.0.0.00000000}.{4e7d05a7-b02e-48a4-9220-e644495fbbd8}"
+            "device_id": "{0.0.0.00000000}.{fa539ad9-e5c4-4037-888a-8a7d5bf7e44f}"
         },
         "sync": 0,
         "versioned_id": "wasapi_output_capture",
         "volume": 1.0
     },
-    "current_program_scene": "Classroom View",
-    "current_scene": "Classroom View",
+    "current_program_scene": "Elmo View",
+    "current_scene": "Elmo View",
     "current_transition": "Fade",
     "groups": [],
     "modules": {
@@ -631,10 +631,10 @@
                 "active": true,
                 "frame_interval": -1,
                 "last_resolution": "1280x720",
-                "last_video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#226&2a7f95a&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+                "last_video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#228&19740492&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
                 "res_type": 1,
                 "resolution": "1280x720",
-                "video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#226&2a7f95a&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
+                "video_device_id": "USB Video:\\\\?\\usb#22vid_534d&pid_2109&mi_00#228&19740492&0&0000#22{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global"
             },
             "sync": 0,
             "versioned_id": "dshow_input",
