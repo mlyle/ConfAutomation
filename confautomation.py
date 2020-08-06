@@ -14,7 +14,7 @@
 
 from pywinauto import Desktop, keyboard
 
-import win32api, win32event
+import win32api, win32event, win32con
 from winerror import ERROR_ALREADY_EXISTS
 import time
 
@@ -165,6 +165,11 @@ def get_smallest_monitor():
 
     return smallidx
 
+def wait_for_key_up(keys):
+    for key in keys:
+        while win32api.GetAsyncKeyState(key) < 0:
+            time.sleep(0.1)
+
 def move_gallery_to_monitor(num):
     """Moves the gallery to the monitor index specified by num"""
     global gallery_arm_time
@@ -185,6 +190,7 @@ def move_gallery_to_monitor(num):
 
     for w in windows:
         if (w.window_text() == "Zoom Meeting"):
+            print("Beginning gallery move")
             print(w.client_rect())
             target=(mon_dims[0]+1, mon_dims[1]+1, mon_dims[2]-mon_dims[0]-2, mon_dims[3]-mon_dims[1]-2)
             print(target)
@@ -267,6 +273,12 @@ def key_move_meeting():
     """Macro key handler: move gallery view to next monitor"""
     global mon
 
+    # Waiting for key release is necessary for well defined behavior, because
+    # when we send macro presses, a key being still down can be harmful.
+    print("key_move_meeting: Waiting for key release")
+    wait_for_key_up([ord('G'), win32con.VK_LCONTROL, win32con.VK_RCONTROL, win32con.VK_LMENU, win32con.VK_RMENU])
+    print("Keys released")
+
     mon = mon + 1
 
     if mon >= len(monitors):
@@ -274,6 +286,19 @@ def key_move_meeting():
 
     print("moving gallery to monitor %d"%(mon))
     move_gallery_to_monitor(mon)
+
+def key_mute_zoom():
+    """Send the mute keypress to Zoom"""
+    print("key_move_meeting: Waiting for key release")
+    wait_for_key_up([win32con.VK_SPACE, win32con.VK_LCONTROL, win32con.VK_RCONTROL, win32con.VK_LMENU, win32con.VK_RMENU])
+    print("Keys released")
+
+    desktop = Desktop()
+
+    zoom = desktop.window(title_re = '^Zoom Meeting$')
+
+    # Toggles mute
+    zoom.type_keys('%a')
 
 def key_center_mouse():
     """Moves the mouse to 500,500; somewhere in the middle of main display"""
@@ -298,6 +323,7 @@ def main():
     # add hotkeys.  Additionally, CTRL-SHIFT-Q exits (built into pyhk3)
     id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting, isThread=True)
     id2 = hot.addHotkey(['Ctrl', 'Alt', 'M'], key_center_mouse)
+    id3 = hot.addHotkey(['Ctrl', 'Alt', 'Space'], key_mute_zoom, isThread=True)
 
     hot.start()
 
