@@ -494,8 +494,11 @@ def UniquePermutation(li):
 class ExecFunThread:
     def __init__(self, fun):
         self.fun = fun
+        self.running = False
 
     def Start(self):
+        if self.running:
+            return
         self.running = True
         _thread.start_new_thread(self.Run, ())
 
