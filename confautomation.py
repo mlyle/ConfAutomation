@@ -296,7 +296,7 @@ def main():
     hot = pyhk3.pyhk()
 
     # add hotkeys.  Additionally, CTRL-SHIFT-Q exits (built into pyhk3)
-    id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting)
+    id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting, isThread=True)
     id2 = hot.addHotkey(['Ctrl', 'Alt', 'M'], key_center_mouse)
 
     hot.start()
