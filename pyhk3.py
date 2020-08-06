@@ -43,7 +43,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
-import ctypes, PyHook3, pythoncom  #thread
+import ctypes, PyHook3, pythoncom, _thread
 
 
 class pyhk:
@@ -497,7 +497,7 @@ class ExecFunThread:
 
     def Start(self):
         self.running = True
-        thread.start_new_thread(self.Run, ())
+        _thread.start_new_thread(self.Run, ())
 
     def IsRunning(self):
         return self.running
