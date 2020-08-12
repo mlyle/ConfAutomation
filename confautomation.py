@@ -196,11 +196,12 @@ def move_gallery_to_monitor(num):
             print(target)
             w.move_window(*target)
             w.set_focus()
+            time.sleep(0.2)
             w.move_window(*target)
 
             print(w.client_rect())
 
-            time.sleep(1.2)
+            time.sleep(1.5)
 
             desktop.Zoom_Meeting.type_keys('%f')
 
