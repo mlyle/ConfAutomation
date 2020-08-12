@@ -194,17 +194,20 @@ def move_gallery_to_monitor(num):
     mon_dims = monitors[num][2]
 
     for w in windows:
-        if (w.window_text() == "Zoom Meeting"):
-            print("Beginning gallery move")
-            print(w.client_rect())
-            target=(mon_dims[0]+1, mon_dims[1]+1, mon_dims[2]-mon_dims[0]-2, mon_dims[3]-mon_dims[1]-2)
-            print(target)
-            w.move_window(*target)
-            w.set_focus()
-            time.sleep(0.2)
-            w.move_window(*target)
+        try:
+            if (w.window_text() == "Zoom Meeting"):
+                print("Beginning gallery move")
+                print(w.client_rect())
+                target=(mon_dims[0]+1, mon_dims[1]+1, mon_dims[2]-mon_dims[0]-2, mon_dims[3]-mon_dims[1]-2)
+                print(target)
+                w.move_window(*target)
+                w.set_focus()
+                time.sleep(0.2)
+                w.move_window(*target)
 
-            print(w.client_rect())
+                print(w.client_rect())
+        except Exception:
+            print("Exception on window name, continuing")
 
     print("Completed gallery move, setting arm_time")
     gallery_arm_time = time.time()
