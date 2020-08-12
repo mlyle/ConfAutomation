@@ -130,12 +130,15 @@ def minimize_ourselves():
     windows = desktop.windows()
 
     for w in windows:
-        txt = w.window_text().lower()
-        if "confautomation" in txt:
-            # Don't minimize the development environment!
-            if "visual studio" in txt:
-                continue
-            w.minimize()
+        try:
+            txt = w.window_text().lower()
+            if "confautomation" in txt:
+                # Don't minimize the development environment!
+                if "visual studio" in txt:
+                    continue
+                w.minimize()
+        except Exception:
+            pass
 
 def pop_out_zoom_controls():
     """Find the Zoom Meeting window, and type keys that pop out key windows"""
