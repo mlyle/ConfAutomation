@@ -139,7 +139,7 @@ def minimize_ourselves():
 
 def pop_out_zoom_controls():
     """Find the Zoom Meeting window, and type keys that pop out key windows"""
-    desktop = Desktop()
+    desktop = Desktop(backend="uia")
 
     # Be specific, match window name exactly.  Because fuzzy matching gets
     # the wrong window ("Zoom" or "Zoom Cloud Meetings")
@@ -148,9 +148,14 @@ def pop_out_zoom_controls():
     # This sends the keys to open the participants and chats lists.
     # They must already be selected as "popped out" in Zoom
     zoom.type_keys('%h')
+    time.sleep(0.3)
     zoom.type_keys('%u')
+    time.sleep(0.3)
+    desktop = Desktop() # (Don't use uia to move things)
     desktop.participants.move_window(30,30)
     desktop.chat.move_window(200,30)
+    time.sleep(0.5)
+    zoom.type_keys('%f')
 
 def get_smallest_monitor():
     """Scans the monitor array, and returns the lowest resolution monitor"""
@@ -200,10 +205,6 @@ def move_gallery_to_monitor(num):
             w.move_window(*target)
 
             print(w.client_rect())
-
-            time.sleep(1.5)
-
-            desktop.Zoom_Meeting.type_keys('%f')
 
     print("Completed gallery move, setting arm_time")
     gallery_arm_time = time.time()
