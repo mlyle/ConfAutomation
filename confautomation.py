@@ -156,7 +156,10 @@ def pop_out_zoom_controls():
     time.sleep(0.3)
     desktop = Desktop() # (Don't use uia to move things)
     desktop.participants.move_window(30,30)
-    desktop.chat.move_window(200,30)
+    try:
+        desktop.chat.move_window(200,30)
+    except:
+        desktop.Zoom_Group_Chat.move_window(200,30)
     time.sleep(0.5)
     zoom.type_keys('%f')
 
