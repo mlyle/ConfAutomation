@@ -168,11 +168,14 @@ def get_smallest_monitor():
     smallest = 999999
     smallidx = 0
 
+
     for i in range(len(monitors)):
-        mon_dims = monitors[i][2]
-        if mon_dims[2] < smallest:
-            smallest = mon_dims[2]
+        mon_size = monitors[i][2][2] - monitors[i][2][0]
+
+        if mon_size < smallest:
+            smallest = mon_size
             smallidx = i
+            print("Selected %d as smallest mon, size %d"%(smallidx,smallest))
 
     return smallidx
 
