@@ -140,7 +140,7 @@ def minimize_ourselves():
         except Exception:
             pass
 
-def pop_out_zoom_controls():
+def pop_out_zoom_controls(send_fullscreen=False):
     """Find the Zoom Meeting window, and type keys that pop out key windows"""
     desktop = Desktop(backend="uia")
 
@@ -160,14 +160,15 @@ def pop_out_zoom_controls():
         desktop.chat.move_window(200,30)
     except:
         desktop.Zoom_Group_Chat.move_window(200,30)
-    time.sleep(0.5)
-    zoom.type_keys('%f')
+
+    if send_fullscreen:
+        time.sleep(0.5)
+        zoom.type_keys('%f')
 
 def get_smallest_monitor():
     """Scans the monitor array, and returns the lowest resolution monitor"""
     smallest = 999999
     smallidx = 0
-
 
     for i in range(len(monitors)):
         mon_size = monitors[i][2][2] - monitors[i][2][0]
@@ -198,8 +199,11 @@ def move_gallery_to_monitor(num):
     if interval < 0.5:
         return
 
+    print("Getting desktop object")
     desktop = Desktop()
+    print("Enumerating windows")
     windows = desktop.windows()
+    print("searching...")
     mon_dims = monitors[num][2]
 
     for w in windows:
@@ -207,8 +211,15 @@ def move_gallery_to_monitor(num):
             if (w.window_text() == "Zoom Meeting"):
                 print("Beginning gallery move")
                 print(w.client_rect())
-                # Leave room for taskbar, because we can't ensure that we're on top of it
-                target=(mon_dims[0]+1, mon_dims[1]+1, mon_dims[2]-mon_dims[0]-2, mon_dims[3]-mon_dims[1]-45)
+
+                # Leave room for taskbar, because we can't ensure that the zoom window is on top of it
+                if num == 0:
+                    taskbar_offset = 36
+                else:
+                    # Don't leave quite as much space on secondary monitors-- just enough to see
+                    # controls
+                    taskbar_offset = 18
+                target=(mon_dims[0]+1, mon_dims[1]+1, mon_dims[2]-mon_dims[0]-2, mon_dims[3]-mon_dims[1]-taskbar_offset)
                 print(target)
                 w.move_window(*target)
                 w.set_focus()
@@ -266,24 +277,6 @@ def conference_start():
     time.sleep(4.5)
     start_zoom()
 
-    # Wait for user to start meeting, pop out controls
-    # XXX the program is in an unfortunate "limbo" during this interval;
-    # I worry about user launching multiple times, etc.
-    # Maybe detect if Zoom or OBS exits?
-    while True:
-        try:
-            pop_out_zoom_controls()
-            break
-        except Exception:
-            print("Failed to move zoom controls; trying again...")
-            time.sleep(0.25)
-
-    global mon
-
-    mon = get_smallest_monitor()
-
-    move_gallery_to_monitor(mon)
-
 def key_move_meeting():
     """Macro key handler: move gallery view to next monitor"""
     global mon
@@ -301,6 +294,10 @@ def key_move_meeting():
 
     print("moving gallery to monitor %d"%(mon))
     move_gallery_to_monitor(mon)
+
+def key_pop_out_zoom():
+    wait_for_key_up([ord('Z'), win32con.VK_LCONTROL, win32con.VK_RCONTROL, win32con.VK_LMENU, win32con.VK_RMENU])
+    pop_out_zoom_controls()
 
 def key_mute_zoom():
     """Send the mute keypress to Zoom"""
@@ -326,24 +323,46 @@ def check_already_running():
     if win32api.GetLastError() == ERROR_ALREADY_EXISTS:
         show_warning("There is already another copy of ConfAutomation running; please exit it.")
         import sys
-        sys.exit(1)
+        os._exit(1)
 
-def main():
-    """Main function: starts conference & waits for hotkeys, coordinates shutdown"""
-    check_already_running()
-
-    conference_start()
+def pyhk_go():
     hot = pyhk3.pyhk()
 
     # add hotkeys.  Additionally, CTRL-SHIFT-Q exits (built into pyhk3)
     id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting, isThread=True)
     id2 = hot.addHotkey(['Ctrl', 'Alt', 'M'], key_center_mouse)
     id3 = hot.addHotkey(['Ctrl', 'Alt', 'Space'], key_mute_zoom, isThread=True)
+    id4 = hot.addHotkey(['Ctrl', 'Alt', 'Z'], key_pop_out_zoom, isThread=True)
 
+    print("Waiting for hotkeys in pyhk_go")
     hot.start()
 
     kill_procs_by_name('Zoom')
     kill_procs_by_name('OBS')
+    import sys
+    os._exit(0)
+
+def main():
+    """Main function: starts conference & waits for hotkeys, coordinates shutdown"""
+    check_already_running()
+    
+    conference_start()
+
+    global mon
+
+    mon = get_smallest_monitor()
+
+    # Wait for user to start meeting, pop out controls
+    while True:
+        try:
+            pop_out_zoom_controls(send_fullscreen=True)
+            break
+        except Exception:
+            print("Failed to move zoom controls; trying again...")
+            time.sleep(0.25)
+
+    move_gallery_to_monitor(mon)
+    pyhk_go()
 
 if __name__ == "__main__":
     # execute only if run as a script
