@@ -154,7 +154,7 @@ def pop_out_zoom_controls(send_fullscreen=False):
     time.sleep(0.3)
     zoom.type_keys('%u')
     time.sleep(0.3)
-    desktop = Desktop() # (Don't use uia to move things)
+    desktop = Desktop() # (Don't use uia to move things-- it doesn't seem to work)
     desktop.participants.move_window(30,30)
     try:
         desktop.chat.move_window(200,30)
@@ -345,7 +345,7 @@ def pyhk_go():
 def main():
     """Main function: starts conference & waits for hotkeys, coordinates shutdown"""
     check_already_running()
-    
+
     conference_start()
 
     global mon
