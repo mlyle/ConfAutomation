@@ -23,10 +23,11 @@ Below are the tasks that this automation performs:
 - Starts OBS
 - Starts Zoom
 - Waits for conference to start and positions Zoom windows
-  - Gallery on auxiliary screen
+  - Gallery on auxiliary (lowest resolution) screen
   - Chat / participants pop-out on laptop screen.
 - Waits in a loop for hotkey button presses
   - CTRL-ALT-M: reposition mouse to known position (eases management of multimonitor views.
   - CTRL-ALT-G: moves the gallery to the next monitor.
+  - CTRL-ALT-Z: Pops out zoom participants again.
   - CTRL-SHIFT-Q: quits
 - Forcibly quits OBS & Zoom 
