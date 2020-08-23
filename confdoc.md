@@ -6,16 +6,13 @@ Laptop Setup Procedure
 
 -   If not already installed, install OBS and OBSVirtualCam.
 
--   As administrator, run VBCableSetupx64.exe from the VB Audio Cable
-    > setup. (This provides the audio path from OBS -\> Zoom)
+-   As administrator, run VBCableSetupx64.exe from the VB Audio Cable setup. (This provides the audio path from OBS -\> Zoom)
 
--   As administrator, run FL2000Setup. (This makes the USB to HDMI
-    > adapter on the cart work)
+-   As administrator, run FL2000Setup. (This makes the USB to HDMI adapter on the cart work)
 
 -   Install Zoom
 
--   Run CA-SETUP (This is the conference automation software that MPL
-    > wrote)
+-   Run CA-SETUP (This is the conference automation software that MPL wrote)
 
     -   Check the box to create desktop shortcut
 
@@ -23,8 +20,7 @@ Laptop Setup Procedure
 
 -   Set Elmo switches on side to "HD Projector" and 720P.
 
--   Restart. Ensure TV/projector and displays on. Connect USB and HDMI
-    > cable after reboot completes.
+-   Restart. Ensure TV/projector and displays on. Connect USB and HDMI cable after reboot completes.
 
 -   Arrange displays:
 
@@ -32,28 +28,22 @@ Laptop Setup Procedure
 
     -   Set the monitor on the cart to 800x600 resolution
 
-    -   Arrange displays to mirror how the cart monitor (3), laptop (1),
-        > and TV/projector (2) are physically arranged in the classroom.
+    -   Arrange displays to mirror how the cart monitor (3), laptop (1), and TV/projector (2) are physically arranged in the classroom.
 
--   Configure the laptop to send sound to the classroom
-    > television/projector.
+-   Configure the laptop to send sound to the classroom television/projector.
 
--   Change laptop power management to sleep displays "after 5 hours"
-    > when plugged in.
+-   Change laptop power management to sleep displays "after 5 hours" when plugged in.
 
 -   Launch ConfAutomation, which runs OBS & Zoom.
 
 -   Setup UHF microphone (teacher mic) and receiver
-
     -   Ensure UHF microphone and receiver are paired.
 
     -   Make sure UHF microphone volume is all the way up (V20)
 
-    -   Use both UHF microphone buttons to select the classroom's
-        > channel
+    -   Use both UHF microphone buttons to select the classroom's channel
 
-    -   Turn the microphone off, wait 10 seconds, and turn it back on to
-        > allow the receiver to find the new channel.
+    -   Turn the microphone off, wait 10 seconds, and turn it back on to allow the receiver to find the new channel.
 
 -   Change OBS configuration
 
@@ -61,24 +51,17 @@ Laptop Setup Procedure
 
         -   Set Monitoring Destination as "Cable Input".
 
-        -   Desktop Audio: set source of Desktop Audio to classroom
-            > television
+        -   Desktop Audio: set source of Desktop Audio to classroomtelevision
 
-        -   Mic Audio properties: set source of Mic to USB Audio Device
-            > (lapel mic)
+        -   Mic Audio properties: set source of Mic to USB Audio Device (lapel mic)
 
-        -   Mic2 Audio properties: set source of Mic2 to UM02
-            > (conference microphone)
+        -   Mic2 Audio properties: set source of Mic2 to UM02 (conference microphone)
 
         -   OK
 
-    -   In Audio Mixer panel: click gear next to audio source: Advanced
-        > audio properties: Make sure Desktop Audio, Mic, and Mic2 are
-        > all set to "Monitor and Output"
+    -   In Audio Mixer panel: click gear next to audio source: Advanced audio properties: Make sure Desktop Audio, Mic, and Mic2 are all set to "Monitor and Output"
 
-    -   In the Source panel, configure each of the video sources; click
-        > on each scene, double click on audio source, confirm you can
-        > get video from each of the appropriate sources.
+    -   In the Source panel, configure each of the video sources; click on each scene, double click on audio source, confirm you can get video from each of the appropriate sources.
 
         -   Classroom view set source to PTZ camera
 
@@ -86,9 +69,7 @@ Laptop Setup Procedure
 
         -   Instructor laptop set source to integrated webcam
 
-    -   Confirm that we can toggle between video sources, and that all 3
-        > audio sources (Windows sound, lapel mic, area mic) make it
-        > into OBS.
+    -   Confirm that we can toggle between video sources, and that all 3 audio sources (Windows sound, lapel mic, area mic) make it into OBS.
 
         -   CTRL-ALT-C
 
@@ -96,28 +77,21 @@ Laptop Setup Procedure
 
         -   CTRL-ALT-S
 
-        -   Talk into teacher mic, watch Mic audio bar to see if its
-            > picking up the sound
+        -   Talk into teacher mic, watch Mic audio bar to see if its picking up the sound
 
-        -   Stand by the cart & talk, watch Mic2 audio bar to see if its
-            > picking up the sound
+        -   Stand by the cart & talk, watch Mic2 audio bar to see if its picking up the sound
 
-    -   Right click on video view in OBS, select 'FullScreen Projector
-        > Preview' and select classroom TV/projector. Verify that the
-        > tv/projector is showing the video view that you see in OBS.
+    -   Right click on video view in OBS, select 'FullScreen Projector Preview' and select classroom TV/projector. Verify that the tv/projector is showing the video view that you see in OBS.
 
-    -   Press CTRL-ALT-C to make sure the classroom view is showing on
-        > the TV/projector.
+    -   Press CTRL-ALT-C to make sure the classroom view is showing on the TV/projector.
 
     -   Minimize OBS window
 
 -   Adjust Zoom configuration
 
-    -   Choose "USB Audio Device" as "speakers", set level all the way
-        > up.
+    -   Choose "USB Audio Device" as "speakers", set level all the way up.
 
-    -   Choose "Cable Output" as "microphone", set level all the way up,
-        > disable automatically adjust mic level
+    -   Choose "Cable Output" as "microphone", set level all the way up, disable automatically adjust mic level
 
     -   Choose OBS-Cam in Zoom as the video source
 
@@ -131,31 +105,24 @@ Laptop Setup Procedure
 
     -   Pop out chat & participants
 
-    -   Make sure view is on Classroom (CTRL-ALT-C) before exiting, so
-        > that next time it starts on this view
+    -   Make sure view is on Classroom (CTRL-ALT-C) before exiting, so that next time it starts on this view
 
     -   Do not end Zoom meeting
 
--   Important: Exit OBS with [File-Exit]{.ul} manually and [wait 5
-    > seconds.]{.ul}
+-   Important: Exit OBS with [File-Exit]{.ul} manually and [wait 5 seconds.]{.ul}
 
 -   Hit CTRL-SHIFT-Q to exit automation and Zoom.
 
 -   In Explorer, go to %APPDATA%, and rename the folder obs-studio to
     > obs-master
 
-    -   This "saves" the OBS configuration for the automation to copy in
-        > place on each startup.
+    -   This "saves" the OBS configuration for the automation to copy in place on each startup.
 
-    -   If you ever have to repeat this step, you'll have to erase the
-        > old obs-master before renaming.
+    -   If you ever have to repeat this step, you'll have to erase the old obs-master before renaming.
 
--   Start ConfAutomation again to test the setup end to end. Launch a
-    > conference. Confirm all audio sources and video sources make it to
-    > remote participants.
+-   Start ConfAutomation again to test the setup end to end. Launch a conference. Confirm all audio sources and video sources make it to remote participants.
 
--   Program initial presets into camera; 1 "instructor view", 2 "wide
-    > instructor view", 3 "classroom view"
+-   Program initial presets into camera; 1 "instructor view", 2 "wide instructor view", 3 "classroom view"
 
 **Note:** Sometimes it has been necessary to re-set the preview screen
 in OBS for the change to "stick." If this is necessary, make the change,
@@ -168,16 +135,13 @@ Conference System Instructor Documentation
 Normal Startup Procedure
 ------------------------
 
-1.  Restart your computer (this is good to do at least daily). USB and
-    > HDMI cables should be unplugged when rebooting.
+1.  Restart your computer (this is good to do at least daily). USB and HDMI cables should be unplugged when rebooting.
 
 2.  Turn on classroom television.
 
-3.  **After the computer has completed starting up,** plug in USB and
-    > HDMI cables. Wait at least 15 seconds for the computer to settle.
+3.  **After the computer has completed starting up,** plug in USB and HDMI cables. Wait at least 15 seconds for the computer to settle.
 
-    a.  Confirm that you can see video on all 3 monitors (laptop,
-        > classroom TV, auxiliary monitor).
+    a.  Confirm that you can see video on all 3 monitors (laptop, classroom TV, auxiliary monitor).
 
     b.  Confirm audio output is set to classroom TV in Sound Settings.
 
@@ -185,35 +149,25 @@ Normal Startup Procedure
 
 5.  Unplug, turn on, & wear the teacher microphone.
 
-6.  Double click on the "ConfAutomation" shortcut, and wait for Zoom to
-    > start. (\~20 seconds)
+6.  Double click on the "ConfAutomation" shortcut, and wait for Zoom to start. (\~20 seconds)
 
-7.  **If the view of the classroom shows on the incorrect monitor:** see
-    > note below.
+7.  **If the view of the classroom shows on the incorrect monitor:** see note below.
 
-8.  If you have used Zoom outside your classroom, make sure in Zoom
-    > settings that:
+8.  If you have used Zoom outside your classroom, make sure in Zoom settings that:
 
     a.  Camera is set to OBS-Camera in Video settings
 
-    b.  In audio settings, Speaker is set to USB Audio Device and you
-        > can hear the piano.
+    b.  In audio settings, Speaker is set to USB Audio Device and you can hear the piano.
 
-    c.  Microphone is set to "Cable Output", volume is all the way up,
-        > and "Automatically Adjust Volume" is turned off.
+    c.  Microphone is set to "Cable Output", volume is all the way up, and "Automatically Adjust Volume" is turned off.
 
 9.  In Zoom, start or join a meeting.
 
-10. If necessary, press CTRL-ALT-G to move the gallery view to the
-    > monitor you want it on (usually this would be the monitor under
-    > the camera). You can also use this to access Zoom controls.
+10. If necessary, press CTRL-ALT-G to move the gallery view to the monitor you want it on (usually this would be the monitor under the camera). You can also use this to access Zoom controls.
 
-11. When the meeting has completed, end the conference in Zoom. Then
-    > hold down CTRL and SHIFT and press Q to shut down all conferencing
-    > software.
+11. When the meeting has completed, end the conference in Zoom. Then hold down CTRL and SHIFT and press Q to shut down all conferencing software.
 
-12. Turn off the classroom television. Remember to charge your
-    > microphone.
+12. Turn off the classroom television. Remember to charge your microphone.
 
 **If the view of the classroom shows up on the wrong monitor before the
 conference starts:** This is slightly tricky: Move the mouse to where
@@ -292,13 +246,11 @@ If the automation isn't working, you can hold a conference without it.
 The quality and flexibility will be degraded but it is a way to hold a
 class until any problems are resolved.
 
-1.  Make sure ConfAutomation isn't running. If necessary, right click on
-    > its icon on the task bar and select "Close".
+1.  Make sure ConfAutomation isn't running. If necessary, right click on its icon on the task bar and select "Close".
 
 2.  Set the speaker in Zoom to USB Audio Device.
 
-3.  Set the microphone to UM02. This is the conference microphone on the
-    > cart.
+3.  Set the microphone to UM02. This is the conference microphone on the cart.
 
 4.  Set the camera in Zoom to Logitech PTZ Pro II.
 
