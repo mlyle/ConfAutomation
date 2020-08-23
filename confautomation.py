@@ -29,6 +29,7 @@ path_zoom = pathlib.Path(winshell.application_data(), 'Zoom', 'bin', 'zoom.exe')
 path_obs = pathlib.Path('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
 
 gallery_arm_time = 0
+pop_out_retries = 7
 
 def copy_over(source, dest):
     """Copy a path from source to dest, making a backup.
@@ -155,15 +156,22 @@ def pop_out_zoom_controls(send_fullscreen=False):
     zoom.type_keys('%u')
     time.sleep(0.3)
     desktop = Desktop() # (Don't use uia to move things-- it doesn't seem to work)
-    desktop.participants.move_window(30,30)
-    try:
-        desktop.chat.move_window(200,30)
-    except:
-        desktop.Zoom_Group_Chat.move_window(200,30)
 
-    if send_fullscreen:
-        time.sleep(0.5)
-        zoom.type_keys('%f')
+    try:
+        desktop.participants.move_window(30,30)
+        try:
+            desktop.chat.move_window(200,30)
+        except:
+            desktop.Zoom_Group_Chat.move_window(200,30)
+
+        if send_fullscreen:
+            time.sleep(0.5)
+            zoom.type_keys('%f')
+    except Exception:
+        if pop_out_retries > 0:
+            pop_out_retries -= 1
+            raise
+        # Otherwise, if this repeatedly hasn't worked, eat the exception
 
 def get_smallest_monitor():
     """Scans the monitor array, and returns the lowest resolution monitor"""
