@@ -303,6 +303,42 @@ def key_move_meeting():
     print("moving gallery to monitor %d"%(mon))
     move_gallery_to_monitor(mon)
 
+def key_move_meeting_C():
+    """Macro key handler: move gallery view to tertiary monitor"""
+    global mon
+
+    # Waiting for key release is necessary for well defined behavior, because
+    # when we send macro presses, a key being still down can be harmful.
+    print("key_move_meeting_C: Waiting for key release")
+    wait_for_key_up([ord('C'), win32con.VK_LCONTROL, win32con.VK_RCONTROL, win32con.VK_LMENU, win32con.VK_RMENU])
+    print("Keys released")
+
+    mon = 2
+
+    if mon >= len(monitors):
+        return
+
+    print("moving gallery to monitor %d"%(mon))
+    move_gallery_to_monitor(mon)
+
+def key_move_meeting_L():
+    """Macro key handler: move gallery view to laptop screen"""
+    global mon
+
+    # Waiting for key release is necessary for well defined behavior, because
+    # when we send macro presses, a key being still down can be harmful.
+    print("key_move_meeting_L: Waiting for key release")
+    wait_for_key_up([ord('L'), win32con.VK_LCONTROL, win32con.VK_RCONTROL, win32con.VK_LMENU, win32con.VK_RMENU])
+    print("Keys released")
+
+    mon = 0
+
+    if mon >= len(monitors):
+        return
+
+    print("moving gallery to monitor %d"%(mon))
+    move_gallery_to_monitor(mon)
+
 def key_pop_out_zoom():
     wait_for_key_up([ord('Z'), win32con.VK_LCONTROL, win32con.VK_RCONTROL, win32con.VK_LMENU, win32con.VK_RMENU])
     pop_out_zoom_controls()
@@ -338,6 +374,9 @@ def pyhk_go():
 
     # add hotkeys.  Additionally, CTRL-SHIFT-Q exits (built into pyhk3)
     id1 = hot.addHotkey(['Ctrl', 'Alt', 'G'], key_move_meeting, isThread=True)
+    id5 = hot.addHotkey(['Ctrl', 'Alt', 'L'], key_move_meeting_L, isThread=True)
+    id6 = hot.addHotkey(['Ctrl', 'Alt', 'C'], key_move_meeting_C, isThread=True)
+
     id2 = hot.addHotkey(['Ctrl', 'Alt', 'M'], key_center_mouse)
     id3 = hot.addHotkey(['Ctrl', 'Alt', 'Space'], key_mute_zoom, isThread=True)
     id4 = hot.addHotkey(['Ctrl', 'Alt', 'Z'], key_pop_out_zoom, isThread=True)
