@@ -251,9 +251,8 @@ def move_gallery_to_monitor(num):
                 if num == 0:
                     taskbar_offset = 36
                 else:
-                    # Don't leave quite as much space on secondary monitors-- just enough to see
-                    # controls
-                    taskbar_offset = 18
+                    # Don't leave space on secondary monitors
+                    taskbar_offset = 1
                 target=(mon_dims[0]+1, mon_dims[1]+1, mon_dims[2]-mon_dims[0]-2, mon_dims[3]-mon_dims[1]-taskbar_offset)
                 print(target)
                 w.move_window(*target)
