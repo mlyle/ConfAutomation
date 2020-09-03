@@ -171,6 +171,9 @@ def pop_out_zoom_controls(send_fullscreen=False):
     while not zoom.exists(timeout=0):
         print("Waiting for zoom window")
         time.sleep(0.25)
+
+    # Don't mess with window right after it appears, in hopes of fixing "Join Meeting"
+    time.sleep(2)
     
     if send_fullscreen:
         zoom.type_keys('%f')
