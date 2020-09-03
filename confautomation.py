@@ -28,8 +28,6 @@ import pyhk3
 path_zoom = pathlib.Path(winshell.application_data(), 'Zoom', 'bin', 'zoom.exe')
 path_obs = pathlib.Path('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
 
-gallery_arm_time = 0
-
 def copy_over(source, dest):
     """Copy a path from source to dest, making a backup.
 
@@ -227,18 +225,6 @@ def wait_for_key_up(keys):
 
 def move_gallery_to_monitor(num):
     """Moves the gallery to the monitor index specified by num"""
-    global gallery_arm_time
-
-    now = time.time()
-
-    interval = now - gallery_arm_time
-
-    # Moving windows onto the high resolution display takes some time.
-    # Only be willing to answer a keystroke if it's been half a second since
-    # when we finished processing the previous keystroke.
-    if interval < 0.5:
-        return
-
     print("Getting desktop object")
     desktop = Desktop()
     print("Enumerating windows")
@@ -271,7 +257,6 @@ def move_gallery_to_monitor(num):
             print("Exception on window name, continuing")
 
     print("Completed gallery move, setting arm_time")
-    gallery_arm_time = time.time()
 
 def conference_start():
     """Performs key conference start activities.
