@@ -29,7 +29,6 @@ path_zoom = pathlib.Path(winshell.application_data(), 'Zoom', 'bin', 'zoom.exe')
 path_obs = pathlib.Path('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
 
 gallery_arm_time = 0
-pop_out_retries = 7
 
 def copy_over(source, dest):
     """Copy a path from source to dest, making a backup.
@@ -113,6 +112,12 @@ def kill_procs_by_name(name, noisy=False):
         first = False
         proc.kill()
 
+def get_zoom_pid():
+    procs = find_procs_by_name('Zoom')
+    if len(procs) < 1:
+        raise Exception("No Zoom Process")
+    return procs[0].pid
+
 def start_zoom():
     """Launch Zoom process"""
     os.startfile(str(path_zoom))
@@ -143,35 +148,62 @@ def minimize_ourselves():
 
 def pop_out_zoom_controls(send_fullscreen=False):
     """Find the Zoom Meeting window, and type keys that pop out key windows"""
-    desktop = Desktop(backend="uia")
+    # Use a desktop handle that's not UIA to move windows, because UIA doesn't work for some reason
+    desktop = Desktop()
 
     # Be specific, match window name exactly.  Because fuzzy matching gets
     # the wrong window ("Zoom" or "Zoom Cloud Meetings")
-    zoom = desktop.window(title_re = '^Zoom Meeting$')
+    zoom = Desktop(backend="uia").window(title_re = '^Zoom Meeting$')
 
-    # This sends the keys to open the participants and chats lists.
-    # They must already be selected as "popped out" in Zoom
-    zoom.type_keys('%h')
-    time.sleep(0.3)
-    zoom.type_keys('%u')
-    time.sleep(0.3)
-    desktop = Desktop() # (Don't use uia to move things-- it doesn't seem to work)
+    retries = 5
 
-    try:
-        desktop.participants.move_window(30,30)
-        try:
-            desktop.chat.move_window(200,30)
-        except:
-            desktop.Zoom_Group_Chat.move_window(200,30)
+    while not zoom.exists(timeout=0):
+        print("Waiting for zoom window")
+        time.sleep(0.25)
+    
+    if send_fullscreen:
+        zoom.type_keys('%f')
 
-        if send_fullscreen:
-            time.sleep(0.5)
-            zoom.type_keys('%f')
-    except Exception:
-        if pop_out_retries > 0:
-            pop_out_retries -= 1
-            raise
-        # Otherwise, if this repeatedly hasn't worked, eat the exception
+    print("Looking for participants and chat")
+    while not (desktop.participants.exists(timeout=0) and desktop.chat.exists(timeout=0)):
+        print("They don't exist, trying...")
+        retries -= 1
+
+        if retries <= 0:
+            print("Reached retry limit")
+            raise Exception("Could not pop out participants and chat")
+
+        print("Waiting for popped-out participants & chat")
+        if zoom.ContentRightPanel.exists(timeout=0) and zoom.ContentRightPanel.Participants.exists(timeout=0):
+            print("Doing the popping ourselves of participants")
+            zoom.set_focus()
+            participants = zoom.ContentRightPanel.Participants
+            participants.click_input(coords=(12,10))
+            zoom.Pop_Out.click_input()
+        else:
+            zoom.type_keys('%u')
+
+        if zoom.ContentRightPanel.exists(timeout=0) and zoom.ContentRightPanel.Chat_Expanded.exists(timeout=0):
+            print("Doing the popping ourselves of chat")
+            zoom.set_focus()
+            chat = zoom.ContentRightPanel.Chat_Expanded
+            chat.click_input(coords=(27,25))
+            zoom.Pop_Out.click_input()
+            print("pop-cycle complete")
+        else:
+            zoom.type_keys('%h')
+        
+        time.sleep(0.2)
+
+    print("Moving participants window")
+    desktop.participants.move_window(30,10)
+
+    # This is a robust way to find Zoom's chat window, that doesn't find other things titled "chat"
+    # and finds a window called Zoom Group Chat for clients that do that (for whatever reason)...
+    chat = desktop.window(process=get_zoom_pid(), title_re = '.*Chat.*')
+
+    print("Moving chat window")
+    chat.move_window(30,460)
 
 def get_smallest_monitor():
     """Scans the monitor array, and returns the lowest resolution monitor"""
@@ -260,11 +292,6 @@ def conference_start():
     except Exception:
         pass
 
-    global monitors
-
-    monitors = win32api.EnumDisplayMonitors()
-    print(monitors)
-
     if len(monitors) != 3:
         show_warning("Expected 3 monitors but found %d"%(len(monitors)))
 
@@ -341,7 +368,10 @@ def key_move_meeting_L():
 
 def key_pop_out_zoom():
     wait_for_key_up([ord('Z'), win32con.VK_LCONTROL, win32con.VK_RCONTROL, win32con.VK_LMENU, win32con.VK_RMENU])
-    pop_out_zoom_controls()
+    try:
+        pop_out_zoom_controls()
+    except Exception:
+        pass
 
 def key_mute_zoom():
     """Send the mute keypress to Zoom"""
@@ -391,7 +421,12 @@ def pyhk_go():
 
 def main():
     """Main function: starts conference & waits for hotkeys, coordinates shutdown"""
-    check_already_running()
+    #check_already_running()
+
+    global monitors
+
+    monitors = win32api.EnumDisplayMonitors()
+    print(monitors)
 
     conference_start()
 
@@ -400,13 +435,10 @@ def main():
     mon = get_smallest_monitor()
 
     # Wait for user to start meeting, pop out controls
-    while True:
-        try:
-            pop_out_zoom_controls(send_fullscreen=True)
-            break
-        except Exception:
-            print("Failed to move zoom controls; trying again...")
-            time.sleep(0.25)
+    try:
+        pop_out_zoom_controls(send_fullscreen=True)
+    except Exception:
+        pass
 
     move_gallery_to_monitor(mon)
     pyhk_go()
