@@ -144,6 +144,18 @@ def minimize_ourselves():
         except Exception:
             pass
 
+def check_really_exist_and_visible(specifications):
+    try:
+        for spec in specifications:
+            if not spec.exists():
+                return False
+            if not spec.is_visible():
+                return False
+    except Exception:
+        return False
+
+    return True
+
 def pop_out_zoom_controls(send_fullscreen=False):
     """Find the Zoom Meeting window, and type keys that pop out key windows"""
     # Use a desktop handle that's not UIA to move windows, because UIA doesn't work for some reason
@@ -152,6 +164,7 @@ def pop_out_zoom_controls(send_fullscreen=False):
     # Be specific, match window name exactly.  Because fuzzy matching gets
     # the wrong window ("Zoom" or "Zoom Cloud Meetings")
     zoom = Desktop(backend="uia").window(title_re = '^Zoom Meeting$')
+    chat = desktop.window(title_re = '^(Zoom Group )?Chat$')
 
     retries = 5
 
@@ -163,7 +176,7 @@ def pop_out_zoom_controls(send_fullscreen=False):
         zoom.type_keys('%f')
 
     print("Looking for participants and chat")
-    while not (desktop.participants.exists(timeout=0) and desktop.chat.exists(timeout=0)):
+    while not check_really_exist_and_visible([desktop.participants, chat]):
         print("They don't exist, trying...")
         retries -= 1
 
@@ -184,8 +197,8 @@ def pop_out_zoom_controls(send_fullscreen=False):
         if zoom.ContentRightPanel.exists(timeout=0) and zoom.ContentRightPanel.Chat_Expanded.exists(timeout=0):
             print("Doing the popping ourselves of chat")
             zoom.set_focus()
-            chat = zoom.ContentRightPanel.Chat_Expanded
-            chat.click_input(coords=(27,25))
+            chat_panel = zoom.ContentRightPanel.Chat_Expanded
+            chat_panel.click_input(coords=(27,25))
             zoom.Pop_Out.click_input()
             print("pop-cycle complete")
         else:
@@ -195,10 +208,6 @@ def pop_out_zoom_controls(send_fullscreen=False):
 
     print("Moving participants window")
     desktop.participants.move_window(30,10)
-
-    # This is a robust way to find Zoom's chat window, that doesn't find other things titled "chat"
-    # and finds a window called Zoom Group Chat for clients that do that (for whatever reason)...
-    chat = desktop.window(process=get_zoom_pid(), title_re = '.*Chat.*')
 
     print("Moving chat window")
     chat.move_window(30,460)
