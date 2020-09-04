@@ -28,6 +28,8 @@ import pyhk3
 path_zoom = pathlib.Path(winshell.application_data(), 'Zoom', 'bin', 'zoom.exe')
 path_obs = pathlib.Path('C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe')
 
+smallidx = 0
+
 def copy_over(source, dest):
     """Copy a path from source to dest, making a backup.
 
@@ -218,6 +220,9 @@ def pop_out_zoom_controls(send_fullscreen=False):
 def get_smallest_monitor():
     """Scans the monitor array, and returns the lowest resolution monitor"""
     smallest = 999999
+
+    global smallidx
+
     smallidx = 0
 
     for i in range(len(monitors)):
@@ -336,7 +341,7 @@ def key_move_meeting_C():
     wait_for_key_up([ord('C'), win32con.VK_LCONTROL, win32con.VK_RCONTROL, win32con.VK_LMENU, win32con.VK_RMENU])
     print("Keys released")
 
-    mon = 2
+    mon = smallidx
 
     if mon >= len(monitors):
         return
