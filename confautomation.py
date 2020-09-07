@@ -181,13 +181,22 @@ def pop_out_zoom_controls(send_fullscreen=False):
         zoom.type_keys('%f')
 
     print("Looking for participants and chat")
-    while not check_really_exist_and_visible([desktop.participants, chat]):
-        print("They don't exist, trying...")
-        retries -= 1
+    while retries > 0:
+        try:
+            print("Trying to move participants window")
+            desktop.participants.move_window(30,10)
 
-        if retries <= 0:
-            print("Reached retry limit")
-            raise Exception("Could not pop out participants and chat")
+            print("Trying to move chat window")
+            chat.move_window(30,460)
+
+            print("Successfully popped out / moved windows")
+
+            return
+        except Exception:
+            pass
+
+        print("Without success...")
+        retries -= 1
 
         print("Waiting for popped-out participants & chat")
         if zoom.ContentRightPanel.exists(timeout=0) and zoom.ContentRightPanel.Participants.exists(timeout=0):
@@ -196,7 +205,9 @@ def pop_out_zoom_controls(send_fullscreen=False):
             participants = zoom.ContentRightPanel.Participants
             participants.click_input(coords=(12,10))
             zoom.Pop_Out.click_input()
+            print("pop-cycle complete")
         else:
+            print("Sending show-participant keystroke")
             zoom.type_keys('%u')
 
         if zoom.ContentRightPanel.exists(timeout=0) and zoom.ContentRightPanel.Chat_Expanded.exists(timeout=0):
@@ -207,15 +218,14 @@ def pop_out_zoom_controls(send_fullscreen=False):
             zoom.Pop_Out.click_input()
             print("pop-cycle complete")
         else:
+            print("Sending show-chat keystroke")
             zoom.type_keys('%h')
-        
+
         time.sleep(0.2)
 
-    print("Moving participants window")
-    desktop.participants.move_window(30,10)
+    print("Reached retry limit")
+    raise Exception("Could not pop out participants and chat")
 
-    print("Moving chat window")
-    chat.move_window(30,460)
 
 def get_smallest_monitor():
     """Scans the monitor array, and returns the lowest resolution monitor"""
