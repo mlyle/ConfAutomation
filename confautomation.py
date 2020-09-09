@@ -160,13 +160,9 @@ def check_really_exist_and_visible(specifications):
 
 def pop_out_zoom_controls(send_fullscreen=False):
     """Find the Zoom Meeting window, and type keys that pop out key windows"""
-    # Use a desktop handle that's not UIA to move windows, because UIA doesn't work for some reason
-    desktop = Desktop()
-
     # Be specific, match window name exactly.  Because fuzzy matching gets
     # the wrong window ("Zoom" or "Zoom Cloud Meetings")
     zoom = Desktop(backend="uia").window(title_re = '^Zoom Meeting$')
-    chat = desktop.window(title_re = '^(Zoom Group )?Chat$')
 
     retries = 5
 
@@ -183,11 +179,18 @@ def pop_out_zoom_controls(send_fullscreen=False):
     print("Looking for participants and chat")
     while retries > 0:
         try:
+            # Use a desktop handle that's not UIA to move windows, because UIA doesn't work for some reason
+            desktop = Desktop()
+
             print("Trying to move participants window")
             desktop.participants.move_window(30,10)
 
             print("Trying to move chat window")
-            chat.move_window(30,460)
+
+            try:
+                desktop.chat.move_window(30,460)
+            except Exception:
+                desktop.Zoom_Group_Chat.move_window(30,460)
 
             print("Successfully popped out / moved windows")
 
