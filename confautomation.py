@@ -12,7 +12,7 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-from pywinauto import Desktop, keyboard
+from pywinauto import Desktop, keyboard, timings
 
 import win32api, win32event, win32con
 from winerror import ERROR_ALREADY_EXISTS
@@ -160,6 +160,8 @@ def check_really_exist_and_visible(specifications):
 
 def pop_out_zoom_controls(send_fullscreen=False):
     """Find the Zoom Meeting window, and type keys that pop out key windows"""
+    timings.Timings.fast()
+
     # Be specific, match window name exactly.  Because fuzzy matching gets
     # the wrong window ("Zoom" or "Zoom Cloud Meetings")
     zoom = Desktop(backend="uia").window(title_re = '^Zoom Meeting$')
@@ -178,6 +180,7 @@ def pop_out_zoom_controls(send_fullscreen=False):
 
     print("Looking for participants and chat")
     while retries > 0:
+        timings.Timings.fast()
         try:
             # Use a desktop handle that's not UIA to move windows, because UIA doesn't work for some reason
             desktop = Desktop()
@@ -193,6 +196,8 @@ def pop_out_zoom_controls(send_fullscreen=False):
                 desktop.Zoom_Group_Chat.move_window(30,460)
 
             print("Successfully popped out / moved windows")
+            
+            timings.Timings.defaults()
 
             return
         except Exception:
@@ -205,6 +210,7 @@ def pop_out_zoom_controls(send_fullscreen=False):
         if zoom.ContentRightPanel.exists(timeout=0) and zoom.ContentRightPanel.Participants.exists(timeout=0):
             print("Doing the popping ourselves of participants")
             zoom.set_focus()
+            timings.Timings.defaults()
             participants = zoom.ContentRightPanel.Participants
             participants.click_input(coords=(12,10))
             zoom.Pop_Out.click_input()
@@ -216,6 +222,7 @@ def pop_out_zoom_controls(send_fullscreen=False):
         if zoom.ContentRightPanel.exists(timeout=0) and zoom.ContentRightPanel.Chat_Expanded.exists(timeout=0):
             print("Doing the popping ourselves of chat")
             zoom.set_focus()
+            timings.Timings.defaults()
             chat_panel = zoom.ContentRightPanel.Chat_Expanded
             chat_panel.click_input(coords=(27,25))
             zoom.Pop_Out.click_input()
@@ -225,6 +232,8 @@ def pop_out_zoom_controls(send_fullscreen=False):
             zoom.type_keys('%h')
 
         time.sleep(0.2)
+
+    timings.Timings.defaults()
 
     print("Reached retry limit")
     raise Exception("Could not pop out participants and chat")
